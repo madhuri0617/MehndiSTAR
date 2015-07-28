@@ -1,0 +1,35 @@
+<ion-view>
+    <ion-nav-bar class="bar-stable bar-assertive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+          <a href="#/app/aboutUs">          
+            <img src="img/logo-homescreen.png" alt="logo"/>
+          </a>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+  <ion-content class="padding"  ng-hide="!MyID">
+      <form name="form.form" id="uploadForm">
+        <div  id="uploaddesigndiv" class="list card">
+            <div class="item">
+                
+                    <div class="fileUpload">
+                        <button class="button uploadbutton"><i class="icon ion-social-dropbox"></i> Select image from Gallery</button>
+                        <input name="userPhoto" type="file" class="upload" onchange="angular.element(this).scope().filechange(event,this)" accept="image/*" multiple app-filereader/>
+                    </div>
+                    
+                <img id="Selectedimage" alt="Select image" src=""/>
+            </div>
+            <div class="item item-body"  id="uploadtags">
+                <button ng-click="upload()" type="submit" class="button button-upload" name="upload"><i class="icon ion-upload"></i> Upload</button>
+            </div>
+            <div class="chat-box"></div>   
+        </div>
+      </form>
+      <div class="" ng-class="{space: mobile=='true'}"></div>
+                  <div ng-if="(mobile == 'false')">
+                <div style="padding: 1%;"></div>
+            </div>
+</ion-content>
+
+</ion-view>

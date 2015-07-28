@@ -1,0 +1,31 @@
+
+<ion-view>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+  <ion-content id="feedback" has-header="true" padding="true">
+    <h2>Feedback Form</h2>
+    <form name="feedback" ng-submit="feedback.$valid && submitForm()" novalidate>
+    <div class="list card">
+        
+        <label class="item item-input">
+            <!--Name:-->
+            <input ng-model="vr.MyName" type="text" placeholder="Name" required>
+        </label>
+        <label class="item item-input">
+            <!--Email:-->
+            <input ng-model="vr.MyEmail" type="email" placeholder="Email" required>
+        </label>
+       
+        <label class="item item-input">
+             <!--Comments:-->
+             <textarea ng-model="vr.Comments" placeholder="Comments" rows="5" required></textarea>
+        </label>
+        <button type="submit" class="button button-upload" name="upload"><i class="icon ion-upload"></i> Submit</button>
+    
+    </div>
+    </form>
+  </ion-content>
+</ion-view>
+

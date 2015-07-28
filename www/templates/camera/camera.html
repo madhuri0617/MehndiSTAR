@@ -1,0 +1,38 @@
+<ion-view>
+     <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        
+        </button>
+             <h1 class="title">Camera Upload</h1>
+      </ion-nav-buttons>
+    <ion-content class="padding" ng-hide="!MyID">
+      <form name="form.form" id="uploadForm">
+        <div id="uploaddesigndiv" class="list card">
+            <div class="item">
+                <div class="fileUpload">
+                <button class="button uploadbutton" ng-click="getPhoto()"><i class="icon ion-camera"></i> Take Picture from Camera</button>
+                </div>
+                <img id="Selectedimage" alt="Not an image" src="">
+            </div>
+            <div class="item item-body"  id="uploadtags">
+          
+                <ion-list>
+                  <ion-item class="item-stable"
+                            ng-click="toggleGroup(3)"
+                            ng-class="{active: isGroupShown(3)}">
+
+                        Tags
+                    <i class="icon toggleoptions" ng-class="isGroupShown(3) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
+                  </ion-item>
+                    <ion-item  class="item-accordion" ng-show="isGroupShown(3)" ng-repeat="tag in tagList" ng-click="check(tag)">
+                    {{tag.name}} <input ng-model="tag.check" type="checkbox" ng-disabled="tag.disable" ng-click="check(tag)">
+                  </ion-item>
+                </ion-list>
+                <textarea ng-model="form.form.desc" class="item-input" placeholder="Enter Description" rows="5"></textarea>
+                <button ng-click="upload()" type="submit" class="button button-upload" name="upload"><i class="icon ion-upload"></i> Upload</button>
+            </div>
+        </div>
+      </form>
+      <div class="space"></div>
+    </ion-content>
+</ion-view>

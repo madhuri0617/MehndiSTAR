@@ -1,0 +1,58 @@
+
+<ion-view>
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+      </ion-nav-buttons> 
+       <!--login signup tabs-->
+          <div class="tabs-striped tabs-top tabs-color-assertive ">
+            <div class="tabs">
+           <a class="tab-item active" href="#">
+             Log In
+           </a>
+<!--           <a class="tab-item" href="#/app/SignUp">
+             SignUp
+           </a>-->
+         </div>
+        </div>
+       <!--content for the tab-->
+      <ion-content>
+          <div class="row" style="margin-top: 10%;" ng-if="(mobile == 'false')">
+          <div class="col col-offset-25 col-50" id="buttonFormatting" style="text-align:center;height:auto;">
+              <!--<p style="font-weight: bold;font-style: italic;font-size:4em;color: red;">mehndistar.com</p>-->
+              <div style="">
+              <!--<img src="../img/344-60.png" alt="loginlogo"/>-->
+              <div style=" background-color:#fff; height:auto;">
+              <br>
+              <p style="color:#5e0a0a;">Mehndi for yesterday's memory,
+                 today's love, tommorow's dream</p>
+              <img src="img/collage1.jpg" alt="logincollage"/>
+              <button id="Btn" class="button button-positive" style="margin-top:-35%;" ng-click="facebookLogin()" ng-show="IsLoggedIn">            
+               <i id="fb-icon" class="icon ion-social-facebook"></i>
+                Log In with Facebook
+              </button>
+              </div>
+              </div>
+          </div>
+          </div>
+          <div style="margin-top:20%;text-align: center" ng-if="(mobile == 'true')">
+          <div id="buttonFormatting" style="text-align:center;height:auto;width:80%;margin:0px auto">
+              <!--<p style="font-weight: bold;font-style: italic;font-size:4em;color: red;">mehndistar.com</p>-->
+              <!--<div style="">-->
+              <!--<img src="../img/344-60.png" alt="loginlogo"/>-->
+              <div style=" background-color:#fff; height:auto;">
+              <br>
+              <p style="color:#5e0a0a;">Mehndi for yesterday's memory,
+                 today's love, tommorow's dream</p>
+              <img src="img/collage1.jpg" alt="logincollage"/>
+              <button id="Btn" class="button button-positive" style="margin-top:-40%;" ng-click="facebookLogin()" ng-show="IsLoggedIn">            
+               <i id="fb-icon" class="icon ion-social-facebook"></i>
+                Log In with Facebook
+              </button>
+              </div>
+              <!--</div>-->
+          </div>
+          </div>
+      </ion-content>
+    </ion-view>
+    

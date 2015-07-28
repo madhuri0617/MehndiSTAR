@@ -1,0 +1,93 @@
+ <ion-view data-ng-init="fsc.getImage()">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+          
+        </button>
+           <h1 class="title"><img src="img/344-60.png" alt="logofullsize"/></h1>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div style="padding-bottom:30px;overflow:auto;">
+    <div id="ImageDetails" class="list card" ng-show="loading === false">
+    <div class="headerformat item item-avatar myProfile-header">
+        <a href ng-click="getuid(fsc.ImgDetails.uid)" ng-if="fsc.MyId!==fsc.ImgDetails.uid">
+            <img ng-src="{{fsc.ImgDetails.DPPath}}" alt=""/>
+            <h2>{{fsc.ImgDetails.userName}}</h2>
+            <small>Posted {{ fsc.ImgDetails.uploadDate}}</small>
+        </a>
+        <a href="#/app/MyProfile/posts" ng-if="fsc.MyId===fsc.ImgDetails.uid">
+            <img ng-src="{{fsc.ImgDetails.DPPath}}" alt=""/>
+            <h2  class="fontcolor">{{fsc.ImgDetails.userName}}</h2>
+            <small>Posted {{ fsc.ImgDetails.uploadDate}}</small>
+            <!--<p> {{posts.imageId}}</p>-->
+        </a>
+    </div>
+         
+    <div class="item item-body">
+      <div id="para"  ng-show="showPara">
+          <p id="ImageDescription">{{fsc.ImgDetails.des}}</p>
+      </div>
+        <a>
+        <img class="full-image" ng-src="{{fsc.ImgDetails.imagePath}}" alt="" ng-click="fsc.gotoZoom()" style="cursor:pointer"/>
+        </a>
+    </div>
+        <div class="item item-body">
+            <p id="likescomments">
+              <a href="" id="likesCount" class="subdued">{{likesCount}} Likes</a>
+              <a href="" class="subdued">{{commentsCount}} Comments</a>
+            </p>
+        </div>
+        <div class="item tabs tabs-secondary tabs-icon-left" ng-controller="ShareController">
+        <a class="tab-item" href ng-click="fsc.ClickedLiked()">
+            <i class="icon ion-android-favorite" ng-style="{color:fsc.color}" ng-disabled="loadingLike"></i>
+          Like
+        </a>
+         <a class="tab-item" href ng-click="fsc.postComment()">
+           <i class="icon ion-chatbox"></i>
+            Comment
+        </a>
+         <a class="tab-item"  ng-click="shareFacebook(fsc.ImgDetails)" href="">
+            <i class="icon ion-social-facebook"></i>
+            Share
+        </a>
+       <a class="tab-item"  ng-click="shareonWhatsapp(shareimagePath)" href="" id="whatsappshare">
+            <i class="icon ion-social-whatsapp"></i>
+            Share
+        </a>
+      </div>
+<!--            <input type="text" ng-model="item.message">-->      
+</div>
+    <div id="commentsDiv" class="list card">
+        <div id="comments" class="item item-avatar" ng-repeat="Post in fsc.PostsResult track by $index"  ng-show="loading === false"  ng-if="msg!=='no comments'">
+                <a href  ng-click="getuid('{{Post.uid}}')" ng-if="fsc.MyId!==Post.uid">    
+                    <img ng-src="{{Post.UserInfo.DPPath}}" alt=""/>
+                    <h2 style="float:left;">{{Post.UserInfo.userName}}</h2>
+                    <small style="float:right;">{{Post.uploadDate}}</small>
+                    <br>
+                    <p style="">{{Post.comment}}</p>
+                </a>
+            <a href="#/app/MyProfile/posts" ng-if="fsc.MyId===Post.uid">    
+                    <img ng-src="{{Post.UserInfo.DPPath}}" alt=""/>
+                    <h2 style="float:left;">{{Post.UserInfo.userName}}</h2>
+                    <small style="float:right;">{{Post.uploadDate}}</small>
+                    <br>
+                    <p style="">{{Post.comment}}</p>
+            </a>
+        </div>
+        <div class="noComments" style="text-align: center" ng-if="msg==='no comments'">
+            <img src="img/no-comments.png" alt="no-comments"/>
+            <p>No Comments yet...</p>
+        </div>
+            <div class="item item-input-inset">
+                
+                <label class="item-input-wrapper">
+                   
+                  <input type="text" placeholder="Write Comment.." size="30" ng-model="fsc.comment">
+                </label>
+                <button class="button button-small" ng-click="fsc.postComment()">
+                  Post Comment  
+                </button>
+              </div>
+        </div>
+            </div>
+    </ion-content>
+</ion-view>

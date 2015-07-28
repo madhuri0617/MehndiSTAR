@@ -1,0 +1,48 @@
+<ion-view>
+     <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+          
+        </button>
+           <h1 class="title">Gallery Upload</h1>
+      </ion-nav-buttons>
+      <ion-content class="padding" ng-hide="!MyID">
+      <form name="form.form" id="uploadForm" style="text-align: center;">
+        <div  id="uploaddesigndiv" class="list card">
+            <div class="item">
+                
+                    <div class="fileUpload">
+                        
+                        <button class="button uploadbutton"><i class="icon ion-social-dropbox"></i> Select image from Gallery</button>
+                        <input name="userPhoto" type="file" class="upload" onchange="angular.element(this).scope().filechange(event,this)" accept="image/*" multiple app-filereader/>
+                    </div>
+                <img id="Selectedimage" alt="Not an image" src=""/>
+                
+            </div>
+            <div class="item item-body"  id="uploadtags">
+          
+                <ion-list>
+                  <ion-item class="item-stable"
+                            ng-click="toggleGroup(7)"
+                            ng-class="{active: isGroupShown(7)}">
+
+                        Tags
+                    <i class="icon toggleoptions" ng-class="isGroupShown(7) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
+                  </ion-item>
+                    <ion-item  class="item-accordion" ng-show="isGroupShown(7)" ng-repeat="tag in tagList" ng-click="check(tag)">
+                    {{tag.name}} <input ng-model="tag.check" type="checkbox" ng-disabled="tag.disable" ng-click="check(tag)">
+                  </ion-item>
+                </ion-list>
+                <textarea ng-model="form.form.desc" class="item-input" placeholder="Enter Description" rows="5"></textarea>
+                <button ng-click="upload()" type="submit" class="button button-upload" name="upload"><i class="icon ion-upload"></i> Upload</button>
+            </div>
+            <div class="chat-box"></div>
+        </div>
+      </form>
+        <div class="" ng-class="{space: mobile=='true'}"></div>
+        <div ng-if="(mobile == 'false')">
+            <div style="padding: 1%;"></div>
+        </div>
+
+</ion-content>
+
+</ion-view>

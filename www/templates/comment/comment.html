@@ -1,0 +1,44 @@
+
+<ion-view>
+    <ion-nav-bar class="bar-stable bar-assertive">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    
+    <ion-content class="padding">
+        <div id="commentsDiv" class="list card">
+            <div id="comments" class="item item-avatar" ng-repeat="Post in cmt.PostsResult track by $index"  ng-show="loading === false">
+                    <img ng-src="{{Post.UserInfo.DPPath}}" alt=""/>
+                    <h2>{{Post.UserInfo.userName}}</h2>
+                    <p>{{Post.comment}}</p>
+            </div>
+            <div class="item item-input-inset">
+                
+                <label class="item-input-wrapper">
+                   
+                  <input type="text" placeholder="Write Comment.." size="30" ng-model="cmt.comment">
+                </label>
+                <button class="button button-small" ng-click="cmt.postComment()">
+                  Post Comment  
+                </button>
+              </div>
+        </div>
+<!--        <div id="writeCommentDiv">
+            <input type="text" ng-model="cmt.posts.postID" value='{{$rootScope.sessionCommentClickedImageID}}'/>
+                <br>   
+                <input type="text" ng-model="cmt.posts.userID" value='{{$rootScope.sessionUserID}}'/>
+         <input type="text" placeholder="Write Comment..." class="item-input" ng-model="cmt.messege">
+            <div class="item item-input-inset">
+                
+                <label class="item-input-wrapper">
+                   
+                  <input type="text" placeholder="Write Comment.." size="30" ng-model="cmt.comment">
+                </label>
+                <button class="button button-small button-assertive" ng-click="cmt.postComment()">
+                  Post Comment  
+                </button>
+              </div>
+        </div>-->
+<!--        <pre>{{cmt.comment}}</pre>-->
+        <div class="space"></div>
+    </ion-content>
+</ion-view>

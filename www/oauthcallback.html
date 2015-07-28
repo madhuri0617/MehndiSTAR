@@ -1,0 +1,21 @@
+<!--<html>
+<body>
+<script>
+    window.opener.openFB.oauthCallback(window.location.href);
+    window.close();
+</script>
+</body>
+</html>-->
+<html>
+<body>
+<script>
+        try
+        {
+            window.opener.postMessage({action:'finishFbAuth',params:{url:window.location.href}},'*');
+            window.close();
+        }catch (error){
+            alert("error:"+error);
+        }
+</script>
+</body>
+</html>

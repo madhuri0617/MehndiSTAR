@@ -1,0 +1,130 @@
+
+<!--sidemeus-->
+<ion-side-menus enable-menu-with-back-views="false" >
+  <ion-side-menu-content>
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+    <ion-nav-bar class="bar-stable bar-assertive"  ng-hide="zoomImagePage">
+<!--        <ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-buttons side="left">
+<!--        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>-->
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+          <a href="#/app/aboutUs">          
+            <img src="img/logo-homescreen.png" alt="logo"/>
+          </a>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-header-bar class="bar-stable">
+      <h1 class="title">
+        <img src="img/344-60.png" alt="logoname"/>
+      </h1>
+    </ion-header-bar>
+    <ion-content id="menus">
+      <ion-list id="toggle">
+          <div class="tagsByStyle">
+              <div class="gradient">
+            <ion-item class=" item-stable "
+                        ng-click="toggleGroup(1)"
+                        ng-class="{active: isGroupShown(1)}">
+
+                <a class="item-content" id="tagByStyle">Tags By Style
+                <i class="icon togglemore" ng-class="isGroupShown(1) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
+                </a>
+              </ion-item>
+              <div ng-show="isGroupShown(1)">
+                <ion-item class="item-accordion" nav-clear menu-close  ng-click="getDesignsPopular('Indian')">
+                  Indian
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close   ng-click="getDesignsPopular('Pakistani')">
+                  Pakistani
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close   ng-click="getDesignsPopular('Moghlai')">
+                  Moghlai
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close    ng-click="getDesignsPopular('Arabic')">
+                  Arabic
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close   ng-click="getDesignsPopular('Indo-Arabic')">
+                  Indo-Arabic
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close   ng-click="getDesignsPopular('Bridal')">
+                  Bridal
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close   ng-click="getDesignsPopular('Common')">
+                  Common
+                </ion-item>
+              </div>
+              </div>
+          </div>
+        <ion-item class="item-stable " nav-clear menu-close>
+          <a href class="item-content" ng-click="getDesignsPopular('Hand Design')">
+          Hand Design
+        </a>
+        </ion-item>
+        <ion-item class="item-stable " nav-clear menu-close>
+         <a href class="item-content" ng-click="getDesignsPopular('Feet Design')">
+         Feet Design
+        </a>
+        </ion-item>
+        <ion-item class="item-stable" nav-clear menu-close ng-hide='sessionMyID'>
+         <a class="item-content" href="#/app/login">
+         Log In
+        </a>
+        </ion-item>
+          <ion-item class="item-stable" nav-clear menu-close ng-show='sessionMyID'>
+         <a class="item-content" href="#/app/home" ng-click='logout()'>
+         Log Out
+        </a>
+        </ion-item>
+        <ion-item class="item-stable" nav-clear menu-close>
+            <a class="item-content" href="#/app/Feedback" >
+         Feedback
+        </a>
+        </ion-item>
+          <ion-item class="item-stable" nav-clear menu-close>
+            <a class="item-content" href ng-click="exit()" >
+         Exit
+        </a>
+        </ion-item>
+        <ion-item class="item-stable" nav-clear menu-close>
+            <a>{{blank}}</a>
+        </ion-item>
+          <ion-item class="item-stable" nav-clear menu-close>
+            <a>{{blank}}</a>
+        </ion-item>
+<!--          <ion-item class="linksFormating" nav-clear menu-close ng-click="login()">
+         Recent
+        </ion-item>-->
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
+<!--        footer-->
+   <div class="bar bar-footer tabs-striped tabs-color-assertive" ng-hide="zoomImagePage">
+        <a id="tabHome" class="tab-item" href="#/app/home" ng-class="getTabClass(1)" ng-click="setActiveTab(1)">
+          <i class="icon ion-ios-home"></i>
+          Home
+        </a>
+
+        <a id="tabUpload" class="tab-item" ng-class="getTabClass(2)" ng-click="setActiveTab(2)">
+          <i class="icon ion-ios-upload-outline"></i>
+          upload
+        </a>
+        <a id="tabCamera" class="tab-item" ng-class="getTabClass(3)" ng-click="setActiveTab(3)">
+          <i class="icon ion-android-camera"></i>
+          camera
+        </a>
+        <a id="tabSearch" class="tab-item" href="#/app/search" ng-class="getTabClass(4)" ng-click="setActiveTab(4)">
+          <i class="icon ion-ios-search-strong"></i>
+          search
+        </a>
+        <a id="tabMyprofile" class="tab-item" ng-class="getTabClass(5)" ng-click="setActiveTab(5)">
+          <i class="icon ion-person"></i>
+          profile
+        </a>
+   </div>

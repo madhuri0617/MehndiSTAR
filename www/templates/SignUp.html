@@ -1,0 +1,33 @@
+
+    <ion-view>
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+       <!--login signup tabs-->
+          <div class="tabs-striped tabs-top tabs-color-assertive ">
+            <div class="tabs">
+           <a class="tab-item " href="#/app/login">
+             LogIn
+           </a>
+<!--           <a class="tab-item active" href="#">
+             SignUp
+           </a>-->
+         </div>
+        </div>
+<!--       content for the tab-->
+      <ion-content>
+          <div id="buttonFormatting">
+            <button id="Btn" class="button button-block button-positive" ng-click="facebookLogin()">
+                <i id="fb-icon" class="icon ion-social-facebook"></i>
+                SignUp with Facebook
+            </button>  
+          </div>
+<!--          <div>
+              <input type="hidden" ng-model="me.userName"/>{{user.name}}<br/>
+              <input type="hidden" ng-model="me.email"/>{{user.email}}<br/>
+              <input type="hidden" ng-model="me.gender"/>{{user.gender}}<br/>
+          </div>-->
+      </ion-content>
+    </ion-view>
+    

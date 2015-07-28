@@ -1,0 +1,27 @@
+<ion-view>
+    <ion-nav-bar class="bar-stable bar-assertive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+          <a href="#/app/aboutUs">          
+            <img src="img/logo-homescreen.png" alt="logo"/>
+          </a>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="padding"  ng-hide="!MyID">
+      <form name="form.form" id="uploadForm">
+        <div id="uploaddesigndiv" class="list card">
+            <div class="item">
+                <div class="fileUpload">
+                <button class="button  uploadbutton" ng-click="getPhoto()"><i class="icon ion-camera"></i> Take Picture from Camera</button>
+                </div>
+                <img id="Selectedimage" alt="Select image" src="">
+            </div>
+            <div class="item item-body"  id="uploadtags">
+                <button ng-click="uploadCamera()" type="submit" class="button button-upload" name="upload"><i class="icon ion-upload"></i> Upload</button>
+            </div>
+        </div>
+      </form>
+      <div class="space"></div>
+    </ion-content>
+</ion-view>

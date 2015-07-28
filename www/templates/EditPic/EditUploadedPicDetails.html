@@ -1,0 +1,44 @@
+    
+<!--EditUploadedPicDetails screen-->
+<ion-view data-ng-init="epc.getPostDetail()">
+    <ion-nav-bar class="bar-stable bar-assertive">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right">
+          <a href="#/app/aboutUs">          
+            <img src="img/logo-homescreen.png" alt="logo"/>
+          </a>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content  class="padding" ng-hide="!MyID">
+        <div id="uploaddesigndiv1" class="list card"   ng-show="loading === false">
+          <div class="item item-body"  id="uploadtags">
+              <div class="item" style="padding:0px">
+                <img id="imgs" class="full-image" ng-src="{{ epc.Post[0].imagePath }}" alt=""/>
+              </div>
+              <div id="desc">
+              <ion-list>
+                <ion-item class="item-stable"
+                        ng-click="toggleGroup(5)"
+                        ng-class="{active: isGroupShown(5)}">
+
+                    Tags
+                <i class="icon toggleoptions" ng-class="isGroupShown(5) ? 'ion-chevron-up' : 'ion-chevron-down'"></i>
+              </ion-item>
+              <ion-item class="item-accordion" ng-show="isGroupShown(5)" ng-repeat="tag in epc.tagsDB" ng-click="check(tag)">
+                  {{tag.name}} <input type="checkbox" ng-model="tag.checked" checked ng-click="check(tag)">
+              </ion-item>
+
+            </ion-list>
+              <textarea  placeholder="Enter Description" class="item-input" rows="3" ng-model="epc.newDes"></textarea>
+               <button ng-click='epc.submit()' class="button button-upload" 
+                name="Save"><i class="icon ion-edit"></i> Save</button>
+               </div>
+              <!--<textarea class="item-input" rows="3" ng-bind="epc.editDes" ng-model="epc.newDes"></textarea>-->
+          </div>
+        </div>
+           <div class="" ng-class="{space: mobile=='true'}"></div>
+                  <div ng-if="(mobile == 'false')">
+                <div style="padding: 1%;"></div>
+            </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,156 @@
+<ion-view>
+    <!--data-ng-init="getPopular(tagFromURL)"-->
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+        <h1 class="title" ng-if="(tagFromURL=='Common')">Home</h1>
+        <h1 class="title" ng-if="(tagFromURL=='undefined')">Home</h1>
+        <h1 class="title" ng-if="(tagFromURL!='Common')">Home - {{tagFromURL}}</h1>
+    </ion-nav-buttons>
+    <div class="tabs-striped tabs-top tabs-background-stable ">
+        <div class="tabs">
+            <a class="tab-item fontcolor"  ng-class="{'active':IsPopularTabActive}"
+               ng-click="getDesignsPopular(tagFromURL);">
+            Popular
+          </a>
+          <a class="tab-item fontcolor" ng-class="{'active':IsRecentTabActive}"
+         ng-click="getDesignsRecent(tagFromURL);">
+            Recent
+          </a>
+        </div>
+    </div>
+    <ion-content id="designs" class="padding">
+        <div class="row" style=" overflow:auto;" ng-if="(mobile == 'false')">
+            <div class="col col-50 leftDiv">
+                <div class="list card desktop" ng-repeat="Post in Posts | filter:filterEvenStartFrom(1)" ng-if="(loading === false && !Post.message)">
+                    <div class="headerformat item item-avatar">
+                        <a href  ng-click="getuid('{{Post.uploader._id}}')" ng-if="MyId!==Post.uploader._id">
+                            <img ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                            <h2>{{Post.uploader.userName}}</h2>
+                            <small>Posted {{Post.uploadDate}}</small>
+                        </a>
+                        <a href="#/app/MyProfile/posts" ng-if="MyId===Post.uploader._id">
+                            <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                            <h2  class="fontcolor">{{Post.uploader.userName}}</h2>
+                            <small>Posted {{Post.uploadDate}}</small>
+                        </a>
+                    </div>
+                    <div class="bodyformat item item-body" ng-click="getimageid('{{Post._id}}')">
+                        <a href><img class="full-image" ng-src="{{Post.imagePath}}" alt=""/></a>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left" ng-controller="ShareController">
+                      <a class="tab-item" ng-click="ClickedLikedHome(Post)">
+                        <i class="icon ion-android-favorite" ng-style="{ color:Post.liked? 'red':'#444' }"></i>
+                        {{Post.cntLikes}} Like
+                      </a>
+                      <a class="tab-item" ng-click="getCommentClickedImageId('{{Post._id}}')">
+                        <i class="icon ion-chatbox"></i>
+                        {{Post.cntComments}} Comment
+                      </a>
+                      <a class="tab-item" ng-click="shareOnFacebook(Post)">
+                        <i class="icon ion-social-facebook"></i>
+                        Share
+                      </a>
+                        <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePath}}')">
+                        <i class="icon ion-social-whatsapp"></i>
+                        Share
+                      </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-50 rightDiv">
+                <div class="list card desktop" ng-repeat="Post in Posts | filter:filterEvenStartFrom(0)" ng-if="(loading === false && !Post.message)">
+                    <div class="headerformat item item-avatar">
+                    <a href  ng-click="getuid('{{Post.uploader._id}}')" ng-if="MyId!==Post.uploader._id">
+                        <img ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                        <h2>{{Post.uploader.userName}}</h2>
+                        <small>Posted {{Post.uploadDate}}</small>
+                    </a>
+                    <a href="#/app/MyProfile/posts" ng-if="MyId===Post.uploader._id">
+                        <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                        <h2  class="fontcolor">{{Post.uploader.userName}}</h2>
+                        <small>Posted {{Post.uploadDate}}</small>
+                    </a>
+                </div>
+                <div class="bodyformat item item-body" ng-click="getimageid('{{Post._id}}')">
+                    <a href><img class="full-image" ng-src="{{Post.imagePath}}" alt=""/></a>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left" ng-controller="ShareController">
+                  <a class="tab-item" ng-click="ClickedLikedHome(Post)">
+                    <i class="icon ion-android-favorite" ng-style="{ color:Post.liked? 'red':'#444' }"></i>
+                    {{Post.cntLikes}} Like
+                  </a>
+                  <a class="tab-item" ng-click="getCommentClickedImageId('{{Post._id}}')">
+                    <i class="icon ion-chatbox"></i>
+                    {{Post.cntComments}} Comment
+                  </a>
+                  <a class="tab-item" ng-click="shareOnFacebook(Post)">
+                    <i class="icon ion-social-facebook"></i>
+                    Share
+                  </a>
+                    <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePath}}')">
+                    <i class="icon ion-social-whatsapp"></i>
+                    Share
+                  </a>
+                </div>
+                </div>
+             </div>
+            <ion-infinite-scroll distance="2"
+                         on-infinite="loadMoreData()"
+                         ng-if="!moredata && !loading" ng-show="moredesigns"
+            ></ion-infinite-scroll>
+            <!--<div class="space"></div>-->
+        </div>
+        <div class="row" style=" overflow:auto;" ng-if="(mobile == 'false')">
+            <div id="noPosts" class="col col-100" style="text-align: center;" ng-repeat="Post in Posts" ng-if="(loading === false && Post.message)">
+                <p>No Posts of {{tagFromURL}}</p>
+            </div>
+        </div>
+        <div  ng-if="(mobile == 'true')" style="margin:0px auto;">
+            <div class="list card desktop" ng-repeat="Post in Posts" ng-if="(loading === false && !Post.message)">
+                <div class="headerformat item item-avatar">
+                    <a href  ng-click="getuid('{{Post.uploader._id}}')" ng-if="MyId!==Post.uploader._id">
+                        <img ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                        <h2>{{Post.uploader.userName}}</h2>
+                        <small>Posted {{Post.uploadDate}}</small>
+                    </a>
+                    <a href="#/app/MyProfile/posts" ng-if="MyId===Post.uploader._id">
+                        <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                        <h2  class="fontcolor">{{Post.uploader.userName}}</h2>
+                        <small>Posted {{Post.uploadDate}}</small>
+                    </a>
+                </div>
+                <div class="bodyformat item item-body" ng-click="getimageid('{{Post._id}}')">
+                    <a href><img class="full-image" ng-src="{{Post.imagePath}}" alt=""/></a>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left" ng-controller="ShareController">
+                  <a class="tab-item" ng-click="ClickedLikedHome(Post)">
+                    <i class="icon ion-android-favorite" ng-style="{ color:Post.liked? 'red':'#444' }"></i>
+                    {{Post.cntLikes}} Like
+                  </a>
+                  <a class="tab-item" ng-click="getCommentClickedImageId('{{Post._id}}')">
+                    <i class="icon ion-chatbox"></i>
+                    {{Post.cntComments}} Comment
+                  </a>
+                  <a class="tab-item" ng-click="shareOnFacebook(Post)">
+                    <i class="icon ion-social-facebook"></i>
+                    Share
+                  </a>
+                    <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePath}}')">
+                    <i class="icon ion-social-whatsapp"></i>
+                    Share
+                  </a>
+                </div>   
+            </div>
+            <div style="text-align: center; margin-top: 50%" ng-repeat="Post in Posts" ng-if="(loading === false && Post.message)">
+                <p>No Posts of {{tagFromURL}}</p>
+            </div>
+            <ion-infinite-scroll distance="2"
+                         on-infinite="loadMoreData()"
+                         ng-if="!moredata && !loading"
+            ></ion-infinite-scroll>
+            <div class="space"></div>
+        </div>
+    </ion-content>
+</ion-view>
