@@ -125,8 +125,8 @@ var app = angular.module('starter', ['ngAnimate','ionic','openfb','starter.contr
 /*===================================== redireciton =============================== */
 app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$logProvider) {
     $ionicConfigProvider.views.transition('none');
-	   $logProvider.debugEnabled(false);
- //   $logProvider.debugEnabled(true);
+  $logProvider.debugEnabled(false);
+  //  $logProvider.debugEnabled(true);
     $stateProvider
     .state('app', {
         url: "/app",
