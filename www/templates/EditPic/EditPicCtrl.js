@@ -10,10 +10,10 @@
             analytics.trackView('Edit Pic');
         });
     }
-    else{
-            $log.debug("EditPic screen");
-            ga('send', 'screenview', {'screenName': 'EditPic'});
-        }
+//    else{
+//            $log.debug("EditPic screen");
+//            ga('send', 'screenview', {'screenName': 'EditPic'});
+//        }
     $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',
@@ -67,7 +67,7 @@
     $scope.uploadPopup = function() {
         var alertPopup = $ionicPopup.alert({
             title: 'Success',
-            template: 'Details Updated',
+            template: 'Details updated for this post.',
             okType: ' button-upload'
         });
         alertPopup.then(function(res) {

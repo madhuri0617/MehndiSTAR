@@ -17,7 +17,7 @@
         </div>
     </div>
     <ion-content  id="searchResultDiv" class="padding" style="">
-        <div  class="row" style=" overflow:auto;" ng-if="(mobile == 'false')" ng-show="!empty">
+        <div  class="row desktopView" style=" overflow:auto;" ng-show="!empty">
             <div class="col col-50 leftDiv ">
                 <div class="list card desktop searchCard"  ng-repeat="Post in searchPosts | filter:filterEvenStartFrom(1)">
                     <div class="headerformat item item-avatar">
@@ -106,12 +106,12 @@
             </div>
             <div class="space"></div>
         </div>
-        <div  class="row" style=" overflow:auto;" ng-if="(mobile == 'false')">
+        <div  class="row desktopView" style=" overflow:auto;">
             <div id="noPosts" class="col col-100" style="text-align: center;" ng-show="empty" ng-class="class">
                     <p>No Posts of {{result}}</p>
             </div>
         </div>
-        <div  ng-if="(mobile == 'true')">
+        <div class="mobileView">
             <div class="list card desktop searchCard"  ng-repeat="Post in searchPosts" ng-show="!empty">
                 <div class="headerformat item item-avatar">
     <!--                <a href="#/app/userProfile">

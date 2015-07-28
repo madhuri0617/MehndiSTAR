@@ -10,10 +10,10 @@ angular.module('starter.controllers')
                 analytics.trackView('Camera');
             });
         }
-        else{
-            $log.debug("CameraUpload screen");
-            ga('send', 'screenview', {'screenName': 'CameraUpload'});
-        }
+//        else{
+//            $log.debug("CameraUpload screen");
+//            ga('send', 'screenview', {'screenName': 'CameraUpload'});
+//        }
     $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',
@@ -68,7 +68,7 @@ angular.module('starter.controllers')
     $scope.uploadPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Success',
-          template: 'Design uploaded',
+          template: 'Your mehndi design is uploaded successfully.',
           okType: ' button-upload'
         });
         alertPopup.then(function(res) {
@@ -156,7 +156,7 @@ angular.module('starter.controllers')
         }           
         if(!$scope.fileUpload)
         {
-            var msg= "You have to Capture picture";
+            var msg= "You must capture a picture to upload.";
             $scope.errorPopup(msg);
             $scope.loading = false;
             $ionicLoading.hide();

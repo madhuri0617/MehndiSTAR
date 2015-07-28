@@ -21,7 +21,7 @@
         </div>
     </div>
     <ion-content id="designs" class="padding">
-        <div class="row" style=" overflow:auto;" ng-if="(mobile == 'false')">
+        <div class="row desktopView" style=" overflow:auto;">
             <div class="col col-50 leftDiv">
                 <div class="list card desktop" ng-repeat="Post in Posts | filter:filterEvenStartFrom(1)" ng-if="(loading === false && !Post.message)">
                     <div class="headerformat item item-avatar">
@@ -102,12 +102,12 @@
             ></ion-infinite-scroll>
             <!--<div class="space"></div>-->
         </div>
-        <div class="row" style=" overflow:auto;" ng-if="(mobile == 'false')">
+        <div class="row desktopView" style=" overflow:auto;">
             <div id="noPosts" class="col col-100" style="text-align: center;" ng-repeat="Post in Posts" ng-if="(loading === false && Post.message)">
                 <p>No Posts of {{tagFromURL}}</p>
             </div>
         </div>
-        <div  ng-if="(mobile == 'true')" style="margin:0px auto;">
+        <div  class="mobileView" style="margin:0px auto;">
             <div class="list card desktop" ng-repeat="Post in Posts" ng-if="(loading === false && !Post.message)">
                 <div class="headerformat item item-avatar">
                     <a href  ng-click="getuid('{{Post.uploader._id}}')" ng-if="MyId!==Post.uploader._id">

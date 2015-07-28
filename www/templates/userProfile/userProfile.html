@@ -40,7 +40,7 @@
     </div>
     <ion-content class="MyDetailsBody padding">
         <!--desktop-->
-        <div  class="row responsive-sm" style=" overflow:auto;" ng-if="(mobile == 'false')">
+        <div  class="row desktopView" style=" overflow:auto;">
             <div class="col col-50 leftDiv">
                 <div id="PostDetails" class="list card desktop" ng-repeat="Post in uc.Posts | filter:filterEvenStartFrom(1)" ng-if="(loading === false && loadinggetOwninfo=== true &&  postLikesAvailable === true)">
                     <div class="headerformat item item-avatar myProfile-header">
@@ -127,7 +127,7 @@
         </div>
         
         <!--mobile-->
-        <div   ng-if="(mobile == 'true')">
+        <div  class="mobileView">
             <div id="PostDetails" class="list card desktop" ng-repeat="Post in uc.Posts" ng-if="(loading === false && loadinggetOwninfo=== true &&  postLikesAvailable === true)">
                 <div class="headerformat item item-avatar myProfile-header">
                     <a href ng-click="getuid('{{Post.uid}}')" ng-if="uc.MyId!==Post.uid">

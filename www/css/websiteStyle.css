@@ -23,7 +23,7 @@ img[src=""]
 }
 #noPosts
 {
-    margin-top: 30%;
+    margin-top: 20%;
 }
 .clearfix:after {
      visibility: hidden;
@@ -1050,7 +1050,14 @@ img[alt="aboutuslogo"]
 #privacyPolicy, #termsPolicy{
     margin-bottom: 40px;
 }
-
+/*.desktopView
+{
+    display:block;
+}*/
+.mobileView
+{
+    display:none;
+}
 /********************************* break point*****************************************/
 @media screen and (max-width:698px)
 {
@@ -1074,13 +1081,20 @@ img[alt="logo"]
 }
 
 @media screen and (max-width:568px){
-     
-    .col-50{
+.desktopView
+{
+    display:none;
+}
+.mobileView
+{
+    display:block;
+}
+/*    .col-50{
         min-width: 100%;
     }
     .col-offset-25{
         margin-left: 0%;
-    }
+    }*/
    
     #commentDiv{
         width: 100%

@@ -10,10 +10,10 @@ angular.module('starter.controllers')
             analytics.trackView('Gallery Upload');
         });
     }
-    else{
-            $log.debug("GalleryUpload screen");
-            ga('send', 'screenview', {'screenName': 'GalleryUpload'});
-        }
+//    else{
+//            $log.debug("GalleryUpload screen");
+//            ga('send', 'screenview', {'screenName': 'GalleryUpload'});
+//        }
     $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',
@@ -69,7 +69,7 @@ angular.module('starter.controllers')
     $scope.uploadPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Success',
-          template: 'Design uploaded',
+          template: 'Your mehndi design is uploaded successfully.',
           okType: ' button-upload'
         });
         alertPopup.then(function(res) {
@@ -133,7 +133,7 @@ angular.module('starter.controllers')
         }
         if(!photo)
         {
-            var msg = 'You have to select image';
+            var msg = 'You must select an image to upload.';
             $scope.errorPopup(msg);
         }
         else
@@ -179,7 +179,7 @@ angular.module('starter.controllers')
                 }
                 else
                 {
-                    var msg = 'Image size is too large.<br>Limit is upto 10MB';
+                    var msg = 'The image file size is too large. Limit is upto 10 MB.';
                     $scope.errorPopup(msg);
                 }
         }
@@ -232,7 +232,7 @@ angular.module('starter.controllers')
         }
         else
         {
-            var msg = 'You have to select image';
+            var msg = 'You must select an image to upload.';
             $scope.errorPopup(msg);
         }   
     };                    

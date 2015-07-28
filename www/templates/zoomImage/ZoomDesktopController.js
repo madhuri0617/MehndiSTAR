@@ -55,10 +55,10 @@ angular.module('starter.controllers')
             analytics.trackView('zoomDesktop');
         });
     }
-    else{
-            $log.debug("ZoomDesktop screen");
-            ga('send', 'screenview', {'screenName': 'ZoomDesktop'});
-        }
+//    else{
+//            $log.debug("ZoomDesktop screen");
+//            ga('send', 'screenview', {'screenName': 'ZoomDesktop'});
+//        }
     if(!$scope.imagetoZoom)
     {
         $location.path('app/home/Common/popular');
@@ -68,7 +68,7 @@ angular.module('starter.controllers')
         if(navigator.userAgent.match(/Firefox/i)){
             var alertPopup = $ionicPopup.alert({
                     title: "Zoom",
-                    content: "Use Ctrl+Mouse Wheel to zoom on firefox",
+                    content: "Use Ctrl + Mouse Wheel to zoom on Firefox.",
                     okType: ' button-upload' 
                 });
                 alertPopup.then(function(result) {         

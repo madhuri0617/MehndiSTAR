@@ -6,7 +6,7 @@
 
 
 angular.module('starter.controllers')
-.controller('FeedbackCtrl', ['$scope','$ionicLoading','$ionicPopup','$localstorage','$log','feedBackService', function FeedbackCtrl($scope,$ionicLoading,$ionicPopup,$localstorage,$log,feedBackService) {  
+.controller('FeedbackCtrl', ['$scope','$ionicLoading','$ionicPopup','$localstorage','$log','feedBackService','$location', function FeedbackCtrl($scope,$ionicLoading,$ionicPopup,$localstorage,$log,feedBackService,$location) {  
         $log.debug("inside feedback controller");
         $scope.apk = localStorage.getItem("MehndiSTARapk");
         $log.debug("apk: "+$scope.apk);
@@ -18,10 +18,10 @@ angular.module('starter.controllers')
                 analytics.trackView('Feedback');
             });
         }
-        else{
-            $log.debug("feedback screen");
-            ga('send', 'screenview', {'screenName': 'feedback'});
-        }
+//        else{
+//            $log.debug("feedback screen");
+//            ga('send', 'screenview', {'screenName': 'feedback'});
+//        }
            $scope.vr = {};
         $scope.loadingWheel = function() {
             $ionicLoading.show({
@@ -84,6 +84,7 @@ angular.module('starter.controllers')
                             $scope.uploadPopup();
                             $scope.loadingLike = false;
                             $ionicLoading.hide();
+                            $location.path('app/home/Common/popular');
                         }
                         else
                         {

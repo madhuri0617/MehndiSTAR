@@ -77,16 +77,16 @@
             <img src="img/no-comments.png" alt="no-comments"/>
             <p>No Comments yet...</p>
         </div>
-            <div class="item item-input-inset">
+            <div class="item item-input-inset" id="commentDiv">
                 
-                <label class="item-input-wrapper">
+                <label class="item-input-wrapper" id="lblComment">
                    
                   <input type="text" placeholder="Write Comment.." size="30" ng-model="fsc.comment">
                 </label>
-                <button class="button button-small" ng-click="fsc.postComment()">
+                <button class="button button-small" ng-click="fsc.postComment()" id="btnComment">
                   Post Comment  
                 </button>
-              </div>
+            </div>
         </div>
             </div>
     </ion-content>

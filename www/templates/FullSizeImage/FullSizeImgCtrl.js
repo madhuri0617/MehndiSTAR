@@ -27,10 +27,10 @@ angular.module('starter.controllers')
                 analytics.trackView('FullSize Image');
             });
         }
-        else{
-            $log.debug("fullsize screen");
-            ga('send', 'screenview', {'screenName': 'fullsize'});
-        }
+//        else{
+//            $log.debug("fullsize screen");
+//            ga('send', 'screenview', {'screenName': 'fullsize'});
+//        }
         $scope.loading = true;
         $scope.fullsizeimageId = $stateParams.imageid ;
         $rootScope.zoomImagePage = false;
@@ -200,7 +200,7 @@ angular.module('starter.controllers')
         $scope.sharePopup = function() {
             $ionicPopup.alert({
                 title: 'Success',
-                template: 'This item has been shared on facebook',
+                template: 'This post has been shared on your Facebook page',
                 okType: ' button-upload'
             });
         };
@@ -233,7 +233,7 @@ angular.module('starter.controllers')
                     })
                     .error(function(data) {
 //                        $scope.errorPopup(data.error.message);
-                        $scope.errorPopup("Your tokan has expired! You need to relogin to MehendiSTAR to share this design on Facebook");
+                        $scope.errorPopup("Your token has expired! You need to re-login to MehndiSTAR to share this post on Facebook.");
                         $scope.loading = false;
                         $ionicLoading.hide();
                     });
@@ -347,7 +347,7 @@ angular.module('starter.controllers')
                 $log.debug("Comments : " + fsc.posts.comment);
                 if(!fsc.posts.comment)
                 {
-                    $scope.errorPopup("Write Comment..");
+                    $scope.errorPopup("Comment required.");
                     $scope.loading = false;
                     $ionicLoading.hide();
                 }

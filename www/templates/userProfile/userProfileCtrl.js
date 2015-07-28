@@ -15,10 +15,10 @@ angular.module('starter.controllers')
             analytics.trackView('User Profile');
         });
     }
-    else{
-            $log.debug("UserProfile screen");
-            ga('send', 'screenview', {'screenName': 'UserProfile'});
-        }
+//    else{
+//            $log.debug("UserProfile screen");
+//            ga('send', 'screenview', {'screenName': 'UserProfile'});
+//        }
 //        $localstorage.set('zoomImagePage',false);
 //       $rootScope.zoomImagePage = $localstorage.get('zoomImagePage');
     $log.debug("$rootScope.zoomImagePage"+$rootScope.zoomImagePage);
@@ -157,7 +157,7 @@ angular.module('starter.controllers')
                     //$log.debug("response likes", response.data);
             if(response.data[0].message)
             {
-                $scope.noDataPopup("Likes","No likes found");
+                $scope.noDataPopup("Likes","No likes found.");
                 $scope.postLikesAvailable = false;
             }
             else

@@ -21,7 +21,7 @@ img[src=""] {
 }
 #noPosts
 {
-    margin-top: 50%;
+    margin-top: 20%;
 }
 .clearfix:after {
      visibility: hidden;
@@ -38,7 +38,7 @@ img[src=""] {
 }
 .padding .card.desktop
 {
-    margin-right: 1%;
+    /*margin-right: 1%;*/
     margin-top: 20px;
 }
 
@@ -87,6 +87,20 @@ img[src=""] {
     clear:left;
     border:1px solid yellow;
 }*/
+.leftDiv .card
+{
+    width:99%;
+    margin-right: 1%;
+    margin-left: 0px;
+    /*border:1px solid red;*/
+}
+.rightDiv .card
+{
+    width:99%;
+    margin-right: 0px;
+    /*margin-left: 1%;*/
+    /*border:1px solid blue;*/
+}
 .card .item:last-child
 {
       border-bottom-right-radius: 6.5px;
@@ -992,9 +1006,12 @@ img[alt="aboutuslogo"]
 #privacyPolicy, #termsPolicy{
     margin-bottom: 40px;
 }
-
+.mobileView
+{
+    display:none;
+}
 /********************************* break point*****************************************/
-@media screen and (max-width:698px)
+@media screen and (max-width:694px)
 {
 .card.desktop img {
     /*max-height: 900px;*/
@@ -1004,16 +1021,39 @@ img[alt="aboutuslogo"]
     width:98%;
     margin-top: 5px;
 }
-/*.card.desktop:nth-child(even)
+.desktopView
 {
-    width:98%;
-    float:none;
-    border:none;
+    display:none;
 }
-.card.desktop:nth-child(odd)
+.mobileView
 {
-    width:98%;
-    float:none;
-    border:none;
-}*/
+    display:block;
+}
+}
+@media screen and (max-width:568px){
+/*    .col-50{
+        min-width: 100%;
+    }
+    .col-offset-25{
+        margin-left: 0%;
+    }*/
+   
+    #commentDiv{
+        width: 100%
+    }
+    #lblComment{
+        width: 60%;
+    }
+    #btnComment{
+        width:30%;
+    }
+}
+@media screen and (max-width:458px){
+    
+    #lblComment{
+        min-width: 50%;
+    }
+    #btnComment{
+        min-width:35%;
+    }
 }

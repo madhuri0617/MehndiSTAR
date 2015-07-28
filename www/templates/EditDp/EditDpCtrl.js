@@ -11,10 +11,10 @@
                 analytics.trackView('Edit Profile Photo');
             });
         }
-        else{
-            $log.debug("EditDp screen");
-            ga('send', 'screenview', {'screenName': 'EditDp'});
-        }
+//        else{
+//            $log.debug("EditDp screen");
+//            ga('send', 'screenview', {'screenName': 'EditDp'});
+//        }
        $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',
@@ -65,7 +65,7 @@
         $scope.uploadPopup = function() {
             var alertPopup = $ionicPopup.alert({
               title: 'Success',
-              template: 'Your Profile photo uploaded',
+              template: 'Your profile photo is updated.',
               okType: ' button-upload'
             });
             alertPopup.then(function(res) {
@@ -106,7 +106,7 @@
         $scope.uploadCamera = function () {         
             if(!$scope.fileUpload || $scope.fileUpload === $localstorage.get('currentPath'))
             {
-                    $scope.msg="You have to Capture Picture";
+                    $scope.msg="You must capture a picture for profile photo.";
                     $scope.errorPopup($scope.msg);
                     $scope.loading = false;
                     $ionicLoading.hide();
@@ -147,7 +147,7 @@
         var _upload = function (photo) {
             if(!photo)
             {
-                        $scope.msg="You have to Select image";
+                        $scope.msg="You must select an image for profile photo.";
                         $scope.errorPopup($scope.msg);
             }
             else
@@ -230,7 +230,7 @@
             }
             else
             {
-                $scope.msg="You have to Select image";
+                $scope.msg="You have must select an image for profile photo.";
                 $scope.errorPopup($scope.msg);
             }
         };
