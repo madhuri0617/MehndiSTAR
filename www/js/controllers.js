@@ -18,6 +18,10 @@ angular.module('starter.controllers', ['ionic'])
                         $log.debug("analytics on app controller");
             }
         }
+        else{
+                    $log.debug("Home screen");
+            ga('send', 'screenview', {'screenName': 'Home'});
+        }
     }
     $rootScope.zoomImagePage = false;
     $scope.tagFromURL = $stateParams.tagNm ;
@@ -503,6 +507,10 @@ angular.module('starter.controllers', ['ionic'])
                 $log.debug("analytics worked for mobile on loginCtrl..");
                 analytics.trackView('Login');
             });
+        }
+        else{
+                $log.debug("login screen");
+            ga('send', 'screenview', {'screenName': 'Login'});
         }
     if($localstorage.get('sessionMyID'))
     {

@@ -31,6 +31,10 @@ angular.module('starter.controllers')
             analytics.trackView('Search');
         });
     }
+    else{
+            $log.debug("Search screen");
+            ga('send', 'screenview', {'screenName': 'Search'});
+        }
     $scope.errorPopup = function(msg) {
         $ionicPopup.alert({
           title: 'Error',

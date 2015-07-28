@@ -10,6 +10,10 @@ angular.module('starter.controllers')
                 analytics.trackView('Camera');
             });
         }
+        else{
+            $log.debug("CameraUpload screen");
+            ga('send', 'screenview', {'screenName': 'CameraUpload'});
+        }
     $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',

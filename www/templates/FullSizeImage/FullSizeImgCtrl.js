@@ -27,6 +27,10 @@ angular.module('starter.controllers')
                 analytics.trackView('FullSize Image');
             });
         }
+        else{
+            $log.debug("fullsize screen");
+            ga('send', 'screenview', {'screenName': 'fullsize'});
+        }
         $scope.loading = true;
         $scope.fullsizeimageId = $stateParams.imageid ;
         $rootScope.zoomImagePage = false;

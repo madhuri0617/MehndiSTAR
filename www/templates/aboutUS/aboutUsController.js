@@ -14,7 +14,11 @@ angular.module('starter.controllers')
                     $log.debug("analytics worked for mobile on aboutus..");
                     analytics.trackView('aboutus');
                 });
-            }    
+            }
+            else{
+                $log.debug("AboutUS screen");
+                ga('send', 'screenview', {'screenName': 'AboutUS'});
+             }
 }]);
 
 

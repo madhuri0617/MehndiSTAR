@@ -12,6 +12,10 @@ angular.module('starter.controllers')
             analytics.trackView('ZoomImage');
         });
     }
+    else{
+            $log.debug("ZoomImage screen");
+            ga('send', 'screenview', {'screenName': 'ZoomImage'});
+        }
     if(!$scope.imagetoZoom)
     {
         $location.path('app/home/Common/popular');

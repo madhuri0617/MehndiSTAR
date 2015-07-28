@@ -15,6 +15,10 @@ angular.module('starter.controllers')
             analytics.trackView('User Profile');
         });
     }
+    else{
+            $log.debug("UserProfile screen");
+            ga('send', 'screenview', {'screenName': 'UserProfile'});
+        }
 //        $localstorage.set('zoomImagePage',false);
 //       $rootScope.zoomImagePage = $localstorage.get('zoomImagePage');
     $log.debug("$rootScope.zoomImagePage"+$rootScope.zoomImagePage);

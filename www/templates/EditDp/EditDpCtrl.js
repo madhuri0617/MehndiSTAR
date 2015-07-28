@@ -11,6 +11,10 @@
                 analytics.trackView('Edit Profile Photo');
             });
         }
+        else{
+            $log.debug("EditDp screen");
+            ga('send', 'screenview', {'screenName': 'EditDp'});
+        }
        $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',
