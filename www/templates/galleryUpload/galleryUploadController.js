@@ -7,13 +7,16 @@ angular.module('starter.controllers')
         $log.debug("apk on galleryUploadCtrl..");
         $scope.$on('$ionicView.beforeEnter', function() {
             $log.debug("analytics worked for mobile on galleryUploadCtrl..");
-            analytics.trackView('Gallery Upload');
+            analytics.trackView('GalleryUpload');
         });
     }
-//    else{
-//            $log.debug("GalleryUpload screen");
-//            ga('send', 'screenview', {'screenName': 'GalleryUpload'});
-//        }
+    else{
+            $log.debug("GalleryUpload screen");
+            ga('send', 'pageview', {
+                'page': '/GalleryUpload',
+                'title': 'GalleryUpload'
+            });
+        }
     $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',

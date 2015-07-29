@@ -12,13 +12,16 @@ angular.module('starter.controllers')
                 $log.debug("apk on aboutus..");
                 $scope.$on('$ionicView.beforeEnter', function() {
                     $log.debug("analytics worked for mobile on aboutus..");
-                    analytics.trackView('aboutus');
+                    analytics.trackView('AboutUs');
                 });
             }
-//            else{
-//                $log.debug("AboutUS screen");
-//                ga('send', 'screenview', {'screenName': 'AboutUS'});
-//             }
+            else{
+                $log.debug("AboutUS screen");
+            ga('send', 'pageview', {
+                'page': '/AboutUS',
+                'title': 'AboutUS'
+            });
+             }
 }]);
 
 

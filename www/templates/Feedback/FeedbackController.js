@@ -18,10 +18,13 @@ angular.module('starter.controllers')
                 analytics.trackView('Feedback');
             });
         }
-//        else{
-//            $log.debug("feedback screen");
-//            ga('send', 'screenview', {'screenName': 'feedback'});
-//        }
+        else{
+            $log.debug("feedback screen");
+            ga('send', 'pageview', {
+                'page': '/Feedback',
+                'title': 'Feedback'
+            });
+        }
            $scope.vr = {};
         $scope.loadingWheel = function() {
             $ionicLoading.show({

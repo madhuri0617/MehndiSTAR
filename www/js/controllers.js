@@ -14,14 +14,17 @@ angular.module('starter.controllers', ['ionic'])
         if($scope.apk === 'true')
         {
             $log.debug("analytics worked for mobile..");
-            if(typeof analytics !== undefined) { analytics.trackView("SideMenus or Home");
+            if(typeof analytics !== undefined) { analytics.trackView("Home");
                         $log.debug("analytics on app controller");
             }
         }
-//        else{
-//                    $log.debug("Home screen");
-//            ga('send', 'screenview', {'screenName': 'Home'});
-//        }
+        else{
+                    $log.debug("Home screen");
+            ga('send', 'pageview', {
+                'page': '/Home',
+                'title': 'Home'
+            });
+        }
     }
     $rootScope.zoomImagePage = false;
     $scope.tagFromURL = $stateParams.tagNm ;
@@ -82,6 +85,17 @@ angular.module('starter.controllers', ['ionic'])
         okType: ' button-upload'
       });
     };
+    $scope.internetConnectionPopUp = function()
+    {
+        var alertPopup = $ionicPopup.alert({
+                    title: "Internet Disconnected",
+                    content: "No internet connection is found on your device.",
+                    okType: ' button-upload' 
+                });
+                alertPopup.then(function(result) {         
+                        ionic.Platform.exitApp();          
+                });
+    }
     $scope.errorPopup = function(msg) {
         $ionicPopup.alert({
           title: 'Error',
@@ -147,11 +161,19 @@ angular.module('starter.controllers', ['ionic'])
             $log.debug("popular", $scope.Posts,$scope.Posts.length);
         },
         function (error) {
+            if($localstorage.get('internet')=== 'false')
+           {
+//               alert("internet" + $localstorage.get('internet'));
+               $scope.internetConnectionPopUp();
+           }
+           else
+           {
            $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
-           $scope.errorPopup($scope.msg);
+           $scope.errorPopup($scope.msg);       
            $scope.loading = false;
            $ionicLoading.hide();
             $log.debug("Error popular", error);
+            }
          });
     };
 
@@ -287,9 +309,12 @@ angular.module('starter.controllers', ['ionic'])
     };
     if($scope.categoryFromURL === 'popular')
     {
+//        if($localstorage.get('internet')==='false')
+//        {
         $scope.getPopular($scope.tagFromURL);
         $scope.IsPopularTabActive = true;
         $scope.IsRecentTabActive = false;  
+//        }
     }
     else if($scope.categoryFromURL === 'recent')
     {
@@ -508,10 +533,13 @@ angular.module('starter.controllers', ['ionic'])
                 analytics.trackView('Login');
             });
         }
-//        else{
-//                $log.debug("login screen");
-//            ga('send', 'screenview', {'screenName': 'Login'});
-//        }
+        else{
+                $log.debug("login screen");
+            ga('send', 'pageview', {
+                'page': '/Login',
+                'title': 'Login'
+            });
+        }
     if($localstorage.get('sessionMyID'))
     {
         $localstorage.set('IsLoggedIn','true');

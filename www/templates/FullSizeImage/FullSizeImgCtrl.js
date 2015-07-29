@@ -24,13 +24,16 @@ angular.module('starter.controllers')
             $log.debug("apk on FullSizeImgCtrl..");
             $scope.$on('$ionicView.beforeEnter', function() {
                 $log.debug("analytics worked for mobile on FullSizeImgCtrl..");
-                analytics.trackView('FullSize Image');
+                analytics.trackView('PostDetails');
             });
         }
-//        else{
-//            $log.debug("fullsize screen");
-//            ga('send', 'screenview', {'screenName': 'fullsize'});
-//        }
+        else{
+            $log.debug("fullsize screen");
+            ga('send', 'pageview', {
+                'page': '/PostDetails',
+                'title': 'PostDetails'
+            });
+        }
         $scope.loading = true;
         $scope.fullsizeimageId = $stateParams.imageid ;
         $rootScope.zoomImagePage = false;

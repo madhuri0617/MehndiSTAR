@@ -7,13 +7,16 @@ angular.module('starter.controllers')
             $log.debug("apk on CameraCtrl..");
             $scope.$on('$ionicView.beforeEnter', function() {
                 $log.debug("analytics worked for mobile on CameraCtrl..");
-                analytics.trackView('Camera');
+                analytics.trackView('CameraUpload');
             });
         }
-//        else{
-//            $log.debug("CameraUpload screen");
-//            ga('send', 'screenview', {'screenName': 'CameraUpload'});
-//        }
+        else{
+            $log.debug("CameraUpload screen");
+            ga('send', 'pageview', {
+                'page': '/CameraUpload',
+                'title': 'CameraUpload'
+            });
+        }
     $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',

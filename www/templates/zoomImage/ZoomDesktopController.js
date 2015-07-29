@@ -44,6 +44,7 @@ angular.module('starter.controllers')
 
 .controller('ZoomDesktopController',['$location','$ionicPopup','$rootScope','$localstorage','$scope','$log',function ZoomDesktopController($location,$ionicPopup,$rootScope,$localstorage,$scope,$log)
 {
+    $localstorage.set('FromPage','app/zoomDesktop');
     $scope.imagetoZoom = $localstorage.get('imageToZoom');
     $scope.apk = localStorage.getItem("MehndiSTARapk");
     $log.debug("apk: "+$scope.apk);
@@ -52,13 +53,16 @@ angular.module('starter.controllers')
         $log.debug("apk on zoomDesktopCtrl..");
         $scope.$on('$ionicView.beforeEnter', function() {
             $log.debug("analytics worked for mobile on zoomDesktopCtrl..");
-            analytics.trackView('zoomDesktop');
+            analytics.trackView('PostDetails_ZoomImage');
         });
     }
-//    else{
-//            $log.debug("ZoomDesktop screen");
-//            ga('send', 'screenview', {'screenName': 'ZoomDesktop'});
-//        }
+    else{
+            $log.debug("ZoomDesktop screen");
+            ga('send', 'pageview', {
+                'page': '/ZoomDesktop',
+                'title': 'ZoomDesktop'
+            });
+        }
     if(!$scope.imagetoZoom)
     {
         $location.path('app/home/Common/popular');
@@ -76,7 +80,6 @@ angular.module('starter.controllers')
             });
         }
         $rootScope.zoomImagePage = true;
-        $localstorage.set('FromPage','app/zoomImage');
     //  $localstorage.set('zoomImagePage',true)
     //  $rootScope.zoomImagePage = $localstorage.get('zoomImagePage');
         $log.debug("$rootScope.zoomImagePage"+$rootScope.zoomImagePage);                

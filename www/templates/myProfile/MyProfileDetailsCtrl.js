@@ -7,13 +7,16 @@ angular.module('starter.controllers')
             $log.debug("apk on MyProfileDetailsCtrl..");
             $scope.$on('$ionicView.beforeEnter', function() {
                 $log.debug("analytics worked for mobile on MyProfileDetailsCtrl..");
-                analytics.trackView('My Profile');
+                analytics.trackView('MyProfile');
             });
         }
-//        else{
-//            $log.debug("MyProfile screen");
-//            ga('send', 'screenview', {'screenName': 'MyProfile'});
-//        }
+        else{
+            $log.debug("MyProfile screen");
+            ga('send', 'pageview', {
+                'page': '/MyProfile',
+                'title': 'MyProfile'
+            });
+        }
     $scope.errorPopup = function(msg) {
         $ionicPopup.alert({
           title: 'Error',
@@ -163,7 +166,7 @@ angular.module('starter.controllers')
                     //mpc.Posts = response.data;
                 if(response.data[0].message)
                 {
-                    $scope.noDataPopup("Posts",response.data[0].message);
+                    $scope.noDataPopup("Posts","No posts found.");
                     $scope.postLikesAvailable = false;
                 }
                 else
@@ -215,7 +218,7 @@ angular.module('starter.controllers')
             $log.debug(response.data);
             if(response.data[0].message)
             {
-                $scope.noDataPopup("Likes",response.data[0].message);
+                $scope.noDataPopup("Likes","No likes found.");
                 $scope.postLikesAvailable = false;
             }
             else

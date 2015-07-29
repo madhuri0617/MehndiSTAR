@@ -361,7 +361,7 @@ img[alt="logincollage"]
    margin-left:-5px;*/
     margin-top: 11px;
     margin-left: 0px;
-    float:left;
+    /*float:left;*/
     clear:right;
 }
 #PostLikeTabs > .tabs {

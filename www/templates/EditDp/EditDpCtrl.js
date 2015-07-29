@@ -8,13 +8,16 @@
             $log.debug("apk on EditDPCtrl..");
             $scope.$on('$ionicView.beforeEnter', function() {
                 $log.debug("analytics worked for mobile on EditDPCtrl..");
-                analytics.trackView('Edit Profile Photo');
+                analytics.trackView('EditProfilePhoto');
             });
         }
-//        else{
-//            $log.debug("EditDp screen");
-//            ga('send', 'screenview', {'screenName': 'EditDp'});
-//        }
+        else{
+            $log.debug("EditDp screen");
+           ga('send', 'pageview', {
+                'page': '/EditDP',
+                'title': 'EditDP'
+              });
+        }
        $scope.loginPopup = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Login',

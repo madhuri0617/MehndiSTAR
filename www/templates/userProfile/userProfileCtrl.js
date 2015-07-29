@@ -12,13 +12,16 @@ angular.module('starter.controllers')
         $log.debug("apk on userProfileCtrl..");
         $scope.$on('$ionicView.beforeEnter', function() {
             $log.debug("analytics worked for mobile on userProfileCtrl..");
-            analytics.trackView('User Profile');
+            analytics.trackView('UserProfile');
         });
     }
-//    else{
-//            $log.debug("UserProfile screen");
-//            ga('send', 'screenview', {'screenName': 'UserProfile'});
-//        }
+    else{
+            $log.debug("UserProfile screen");
+            ga('send', 'pageview', {
+                'page': '/UserProfile',
+                'title': 'UserProfile'
+            });
+        }
 //        $localstorage.set('zoomImagePage',false);
 //       $rootScope.zoomImagePage = $localstorage.get('zoomImagePage');
     $log.debug("$rootScope.zoomImagePage"+$rootScope.zoomImagePage);
