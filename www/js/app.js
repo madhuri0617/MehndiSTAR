@@ -66,20 +66,16 @@ var app = angular.module('starter', ['ngAnimate','ionic','openfb','starter.contr
         }
         else{
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  $log.debug("analytics worked for browser..");
-  ga('create', 'UA-65574899-2', 'auto');
-  $log.debug("homeApp");
-  
-  //ga('send', 'screenview', {'screenName': 'HomeAPP'});
-  //ga('send', 'pageview');
-  ga('send', 'pageview', {
-  'page': '/App',
-  'title': 'App'
-});
-        }
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                    $log.debug("analytics worked for browser..");
+                    ga('create', 'UA-65574899-2', 'auto');
+                    ga('send', 'pageview', {
+                    'page': '/App',
+                    'title': 'App'
+                  });
+            }
 //        
     });
     $ionicPlatform.registerBackButtonAction(function (event) {
@@ -146,8 +142,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })
-    .state('app.Feedback', {
-        url: "/Feedback",
+    .state('app.feedback',
+         {
+        url: "/feedback",
         cache:false,
         views: {
           'menuContent': {
@@ -176,9 +173,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })  
-    .state('app.galleryUpload', {
+    .state('app.galleryupload', {
         cache:false,
-        url: "/galleryUpload",
+        url: "/galleryupload",
         views: {
           'menuContent': {
                 templateUrl: "templates/galleryUpload/galleryUpload.html",
@@ -196,9 +193,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })
-    .state('app.MyProfile', {
+    .state('app.myprofile', {
         cache:false,
-        url: "/MyProfile/:myPostsLikes",
+        url: "/myprofile/:myPostsLikes",
         views: {
           'menuContent': {
                 templateUrl: "templates/myProfile/MyProfile.html",
@@ -206,9 +203,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })
-    .state('app.EditUploadedPicDetails', {
+    .state('app.edituploadedpicdetails', {
         cache:false,
-        url: "/EditUploadedPicDetails",
+        url: "/edituploadedpicdetails",
         views: {
           'menuContent': {
                 templateUrl: "templates/EditPic/EditUploadedPicDetails.html",
@@ -216,9 +213,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })
-    .state('app.DpChangeCamera', {
+    .state('app.dpchangecamera', {
         cache:false,
-        url: "/DpChangeCamera",
+        url: "/dpchangecamera",
         views: {
           'menuContent': {
                 templateUrl: "templates/EditDp/DpChangeCamera.html",
@@ -226,9 +223,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })
-    .state('app.DpChangeGallery', {
+    .state('app.dpchangegallery', {
         cache:false,
-        url: "/DpChangeGallery",
+        url: "/dpchangegallery",
         views: {
           'menuContent': {
                 templateUrl: "templates/EditDp/DpChangeGallery.html",
@@ -246,9 +243,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })   
-    .state('app.FullSizeImage', {
+    .state('app.fullsizeimage', {
         cache:false,
-        url: "/FullSizeImage/:imageid",
+        url: "/fullsizeimage/:imageid",
         views: {
           'menuContent': {
                 templateUrl: "templates/FullSizeImage/FullSizeImage.html",
@@ -256,9 +253,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     }) 
-    .state('app.FullSizeFb', {
+    .state('app.fullsizefb', {
         cache:false,
-        url: "/FullSizeFb/:imageid",
+        url: "/fullsizefb/:imageid",
         views: {
           'menuContent': {
                 templateUrl: "templates/FullSizeImage/FullSizeFb.html",
@@ -266,9 +263,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })    
-    .state('app.zoomImage', {
+    .state('app.zoomimage', {
         cache:false,
-        url: "/zoomImage",
+        url: "/zoomimage",
         views: {
           'menuContent': {
                 templateUrl: "templates/zoomImage/zoomImage.html",
@@ -276,9 +273,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })   
-    .state('app.ZoomDesktop', {
+    .state('app.zoomdesktop', {
         cache:false,
-        url: "/ZoomDesktop",
+        url: "/zoomdesktop",
         views: {
           'menuContent': {
                 templateUrl: "templates/zoomImage/ZoomDesktop.html",
@@ -286,9 +283,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })
-    .state('app.userProfile', {
+    .state('app.userprofile', {
         cache:false,
-        url: "/userProfile/:uid/:PostsLikes",
+        url: "/userprofile/:uid/:PostsLikes",
         views: {
           'menuContent': {
                 templateUrl: "templates/userProfile/userProfile.html",
@@ -296,9 +293,9 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })    
-    .state('app.aboutUs', {
+    .state('app.aboutus', {
         cache:false,
-        url: "/aboutUs",
+        url: "/aboutus",
         views: {
           'menuContent': {
                 templateUrl: "templates/aboutUS/aboutUs.html",
@@ -306,18 +303,18 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             }
         }
     })
-    .state('app.privacyPolicy', {
+    .state('app.privacypolicy', {
         cache:false,
-        url: "/privacyPolicy",
+        url: "/privacypolicy",
         views: {
           'menuContent': {
                 templateUrl: "templates/privacyPolicy.html"
             }
         }
     })
-    .state('app.termsAndConditions', {
+    .state('app.termsandconditions', {
         cache:false,
-        url: "/termsAndConditions",
+        url: "/termsandconditions",
         views: {
           'menuContent': {
                 templateUrl: "templates/termsAndConditions.html"
@@ -325,6 +322,17 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
         }
     });
   // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/home/Common/popular');
+//    $urlRouterProvider.otherwise('/app/home/Common/popular');
+      $urlRouterProvider.otherwise(function($injector, $location){
+//        console.log($location.path());
+        var path = $location.path(), normalized = path.toLowerCase();
+        if (path !== normalized) {
+            //instead of returning a new url string, I'll just change the $location.path directly so I don't have to worry about constructing a new url string and so a new state change is not triggered
+            $location.replace().path(normalized);
+        }else{
+             $location.path('/app/home/Common/popular');
+        }
+        
+});
 });
 

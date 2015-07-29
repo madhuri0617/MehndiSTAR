@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['ionic'])
 .controller('AppCtrl',function($state,$scope,$rootScope,OpenFB,$location,$stateParams,CommonServiceDate,homeService,$ionicPopup,$ionicScrollDelegate,$ionicLoading,$localstorage,FullImgService,$log,$timeout) {   
     
-    $log.debug("inside controller");
+    $log.debug("inside controller ");
     $scope.mobile = localStorage.getItem("mobile");
 //    console.log($state.current.name);
 //    google analytics
@@ -119,6 +119,21 @@ angular.module('starter.controllers', ['ionic'])
     };
     $scope.getPopular = function(tagNm)
     {
+        if($scope.apk === 'true')
+        {
+            $log.debug("analytics worked for mobile..");
+            if(typeof analytics !== undefined) { analytics.trackView("Home-"+ tagNm);
+                        $log.debug("analytics on " + tagNm);
+            }
+        }
+        else{
+            $log.debug("analytics on "+ tagNm);
+            ga('send', 'pageview', {
+                'page': '/Home-'+ tagNm,
+                'title': 'Home-' + tagNm
+            });
+        }
+        
         $scope.populartab = true;
         $scope.loadingWheel();
 //        $location.path("app/home/"+tagNm + "/" + $scope.categoryFromURL);
@@ -265,6 +280,20 @@ angular.module('starter.controllers', ['ionic'])
     $scope.getRecent = function(tagNm){
         $scope.populartab = false;
         $scope.loadingWheel();
+        if($scope.apk === 'true')
+        {
+            $log.debug("analytics worked for mobile..");
+            if(typeof analytics !== undefined) { analytics.trackView("Home-"+ tagNm);
+                        $log.debug("analytics on " + tagNm);
+            }
+        }
+        else{
+            $log.debug("analytics on "+ tagNm);
+            ga('send', 'pageview', {
+                'page': '/Home-'+ tagNm,
+                'title': 'Home-' + tagNm
+            });
+        }
 //        $location.path("app/home/"+tagNm + "/" + category);
         $scope.recent = {
                 beg : 0,																// begining of response set used for scroll down

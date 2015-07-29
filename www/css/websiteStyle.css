@@ -1051,6 +1051,10 @@ img[alt="aboutuslogo"]
 #privacyPolicy, #termsPolicy{
     margin-bottom: 40px;
 }
+#privacyPolicy p , #privacyPolicy h3 , #termsPolicy p,#termsPolicy h3
+{
+    color:#898383;
+}
 /*.desktopView
 {
     display:block;
