@@ -6,8 +6,10 @@
 
 
 angular.module('starter.controllers')
-.controller('FeedbackCtrl', ['$scope','$ionicLoading','$ionicPopup','$localstorage','$log','feedBackService','$location', function FeedbackCtrl($scope,$ionicLoading,$ionicPopup,$localstorage,$log,feedBackService,$location) {  
+.controller('FeedbackCtrl', ['$state','$scope','$ionicLoading','$ionicPopup','$localstorage','$log','feedBackService','$location', function FeedbackCtrl($state,$scope,$ionicLoading,$ionicPopup,$localstorage,$log,feedBackService,$location) {  
         $log.debug("inside feedback controller");
+        $localstorage.set('CurrentPage',$state.current.name);
+        $localstorage.set('FromPage','app/feedback');
         $scope.apk = localStorage.getItem("MehndiSTARapk");
         $log.debug("apk: "+$scope.apk);
         if($scope.apk === 'true')

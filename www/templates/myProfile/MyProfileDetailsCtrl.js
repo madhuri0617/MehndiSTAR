@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('MyProfileDetailsCtrl', ['$stateParams','$localstorage','$scope','$rootScope','$http','$location','MyProfileService','$ionicScrollDelegate','$ionicLoading','$ionicPopup','FullImgService','CommonServiceDate','$log', function MyProfileDetailsCtrl($stateParams,$localstorage,$scope,$rootScope,$http,$location,MyProfileService,$ionicScrollDelegate,$ionicLoading,$ionicPopup,FullImgService,CommonServiceDate,$log) {
+.controller('MyProfileDetailsCtrl', ['$state','$stateParams','$localstorage','$scope','$rootScope','$http','$location','MyProfileService','$ionicScrollDelegate','$ionicLoading','$ionicPopup','FullImgService','CommonServiceDate','$log', function MyProfileDetailsCtrl($state,$stateParams,$localstorage,$scope,$rootScope,$http,$location,MyProfileService,$ionicScrollDelegate,$ionicLoading,$ionicPopup,FullImgService,CommonServiceDate,$log) {
     $scope.apk = localStorage.getItem("MehndiSTARapk");
         $log.debug("apk: "+$scope.apk);
         if($scope.apk === 'true')
@@ -50,7 +50,8 @@ angular.module('starter.controllers')
           }
         });
     };
-    $localstorage.set('FromPage','app/MyProfile/posts');
+    $localstorage.set('CurrentPage',$state.current.name);
+    $localstorage.set('FromPage','app/myprofile/posts');
     $scope.MyID=$localstorage.get('sessionMyID');
     if(!$scope.MyID)
     {
@@ -68,7 +69,8 @@ angular.module('starter.controllers')
         });
     };
     $scope.myPostsLikesFromURL = $stateParams.myPostsLikes;
-    $localstorage.set('FromPage','app/MyProfile/posts');
+    $localstorage.set('CurrentPage',$state.current.name);
+    $localstorage.set('FromPage','app/myprofile/posts');
     $scope.noDataPopup = function(msg1,msg2) {
         $ionicPopup.alert({
             title: msg1,
@@ -109,7 +111,7 @@ angular.module('starter.controllers')
         MyProfileService.getOwnInfo(mpc.user).then(function (response) {
                 $log.debug(response.data);
                 mpc.OwnInfo = response.data;
-                $localstorage.set('currentPath',mpc.OwnInfo.DPPath);
+                $localstorage.set('currentPath',mpc.OwnInfo.DPPathHigh);
 //                    alert("DP: "+mpc.OwnInfo.DPPath);
 //                    alert("name: "+mpc.OwnInfo.userName);
 //                    $rootScope.currentPath = mpc.OwnInfo.DPPath;
@@ -121,6 +123,7 @@ angular.module('starter.controllers')
             $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
             $scope.errorPopup($scope.msg);
             $scope.loading = false;
+            $scope.moredata = true;
             $ionicLoading.hide();
             $log.debug("Error in getOwnInfo Service", error);
         });
@@ -144,14 +147,16 @@ angular.module('starter.controllers')
     };
     mpc.getDesignsOwnPosts = function()
     {
-        $localstorage.set('FromPage','app/MyProfile/posts');
+        $localstorage.set('CurrentPage',$state.current.name);
+        $localstorage.set('FromPage','app/myprofile/posts');
         $location.path("app/MyProfile/posts");
         $scope.IsPostTabActive = true;
         $scope.IsLikeTabActive = false; 
     };
     mpc.getDesignsOwnLikes = function()
     {
-        $localstorage.set('FromPage','app/MyProfile/likes');
+        $localstorage.set('CurrentPage',$state.current.name);
+        $localstorage.set('FromPage','app/myprofile/likes');
         $location.path("app/MyProfile/likes");
         $scope.IsLikeTabActive = true;
         $scope.IsPostTabActive = false;
@@ -206,6 +211,7 @@ angular.module('starter.controllers')
                 $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
                 $scope.errorPopup($scope.msg);
                 $scope.loading = false;
+                $scope.moredata = true;
                 $ionicLoading.hide();
                $log.debug("Error in getOwnPost Service", error);
             });
@@ -256,20 +262,23 @@ angular.module('starter.controllers')
             $scope.errorPopup($scope.msg);
             $scope.loading = false;
             $ionicLoading.hide();
+            $scope.moredata = true;
            $log.debug("Error in getOwnLikes Service", error);
         });
     };
     if($scope.myPostsLikesFromURL === 'posts')
     {
+        $localstorage.set('CurrentPage',$state.current.name);
         mpc.getOwnPost(); 
-        $localstorage.set('FromPage','app/MyProfile/posts');
+        $localstorage.set('FromPage','app/myprofile/posts');
         $scope.IsPostTabActive = true;
         $scope.IsLikeTabActive = false; 
     }
     else
     {
+        $localstorage.set('CurrentPage',$state.current.name);
         mpc.getOwnLike();
-        $localstorage.set('FromPage','app/MyProfile/likes');
+        $localstorage.set('FromPage','app/myprofile/likes');
         $scope.IsLikeTabActive = true;
         $scope.IsPostTabActive = false;
     }

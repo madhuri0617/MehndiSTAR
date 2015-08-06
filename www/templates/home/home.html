@@ -29,18 +29,18 @@
                 <div class="list card desktop" ng-repeat="Post in Posts | filter:filterEvenStartFrom(1)" ng-if="(loading === false && !Post.message)">
                     <div class="headerformat item item-avatar">
                         <a href  ng-click="getuid('{{Post.uploader._id}}')" ng-if="MyId!==Post.uploader._id">
-                            <img ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                            <img ng-src="{{Post.uploader.DPPathLow}}" alt=""/>
                             <h2>{{Post.uploader.userName}}</h2>
                             <small>Posted {{Post.uploadDate}}</small>
                         </a>
                         <a href="#/app/MyProfile/posts" ng-if="MyId===Post.uploader._id">
-                            <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                            <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPathLow}}" alt=""/>
                             <h2  class="fontcolor">{{Post.uploader.userName}}</h2>
                             <small>Posted {{Post.uploadDate}}</small>
                         </a>
                     </div>
                     <div class="bodyformat item item-body" ng-click="getimageid('{{Post._id}}')">
-                        <a href><img class="full-image" ng-src="{{Post.imagePath}}" alt=""/></a>
+                        <a href><img class="full-image" ng-src="{{Post.imagePathLow}}" alt=""/></a>
                     </div>
                     <div class="item tabs tabs-secondary tabs-icon-left" ng-controller="ShareController">
                       <a class="tab-item" ng-click="ClickedLikedHome(Post)">
@@ -51,11 +51,11 @@
                         <i class="icon ion-chatbox"></i>
                         {{Post.cntComments}} Comment
                       </a>
-                      <a class="tab-item" ng-click="shareOnFacebook(Post)">
+                        <a class="tab-item"  ng-click="shareFBPopupwithImage(Post)">
                         <i class="icon ion-social-facebook"></i>
                         Share
                       </a>
-                        <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePath}}')">
+                        <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePathHigh}}')">
                         <i class="icon ion-social-whatsapp"></i>
                         Share
                       </a>
@@ -66,18 +66,18 @@
                 <div class="list card desktop" ng-repeat="Post in Posts | filter:filterEvenStartFrom(0)" ng-if="(loading === false && !Post.message)">
                     <div class="headerformat item item-avatar">
                     <a href  ng-click="getuid('{{Post.uploader._id}}')" ng-if="MyId!==Post.uploader._id">
-                        <img ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                        <img ng-src="{{Post.uploader.DPPathLow}}" alt=""/>
                         <h2>{{Post.uploader.userName}}</h2>
                         <small>Posted {{Post.uploadDate}}</small>
                     </a>
                     <a href="#/app/MyProfile/posts" ng-if="MyId===Post.uploader._id">
-                        <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                        <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPathLow}}" alt=""/>
                         <h2  class="fontcolor">{{Post.uploader.userName}}</h2>
                         <small>Posted {{Post.uploadDate}}</small>
                     </a>
                 </div>
                 <div class="bodyformat item item-body" ng-click="getimageid('{{Post._id}}')">
-                    <a href><img class="full-image" ng-src="{{Post.imagePath}}" alt=""/></a>
+                    <a href><img class="full-image" ng-src="{{Post.imagePathLow}}" alt=""/></a>
                 </div>
                 <div class="item tabs tabs-secondary tabs-icon-left" ng-controller="ShareController">
                   <a class="tab-item" ng-click="ClickedLikedHome(Post)">
@@ -88,11 +88,11 @@
                     <i class="icon ion-chatbox"></i>
                     {{Post.cntComments}} Comment
                   </a>
-                  <a class="tab-item" ng-click="shareOnFacebook(Post)">
+                  <a class="tab-item"  ng-click="shareFBPopupwithImage(Post)">
                     <i class="icon ion-social-facebook"></i>
                     Share
                   </a>
-                    <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePath}}')">
+                    <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePathHigh}}')">
                     <i class="icon ion-social-whatsapp"></i>
                     Share
                   </a>
@@ -114,18 +114,18 @@
             <div class="list card desktop" ng-repeat="Post in Posts" ng-if="(loading === false && !Post.message)">
                 <div class="headerformat item item-avatar">
                     <a href  ng-click="getuid('{{Post.uploader._id}}')" ng-if="MyId!==Post.uploader._id">
-                        <img ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                        <img ng-src="{{Post.uploader.DPPathLow}}" alt=""/>
                         <h2>{{Post.uploader.userName}}</h2>
                         <small>Posted {{Post.uploadDate}}</small>
                     </a>
                     <a href="#/app/MyProfile/posts" ng-if="MyId===Post.uploader._id">
-                        <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPath}}" alt=""/>
+                        <img ng-click="getuid('{{Post.uploader._id}}')" ng-src="{{Post.uploader.DPPathLow}}" alt=""/>
                         <h2  class="fontcolor">{{Post.uploader.userName}}</h2>
                         <small>Posted {{Post.uploadDate}}</small>
                     </a>
                 </div>
                 <div class="bodyformat item item-body" ng-click="getimageid('{{Post._id}}')">
-                    <a href><img class="full-image" ng-src="{{Post.imagePath}}" alt=""/></a>
+                    <a href><img class="full-image" ng-src="{{Post.imagePathLow}}" alt=""/></a>
                 </div>
                 <div class="item tabs tabs-secondary tabs-icon-left" ng-controller="ShareController">
                   <a class="tab-item" ng-click="ClickedLikedHome(Post)">
@@ -136,11 +136,11 @@
                     <i class="icon ion-chatbox"></i>
                     {{Post.cntComments}} Comment
                   </a>
-                  <a class="tab-item" ng-click="shareOnFacebook(Post)">
+                  <a class="tab-item"  ng-click="shareFBPopupwithImage(Post)">
                     <i class="icon ion-social-facebook"></i>
                     Share
                   </a>
-                    <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePath}}')">
+                    <a class="tab-item" id="whatsappshare" ng-click="shareonWhatsapp('{{Post.imagePathHigh}}')">
                     <i class="icon ion-social-whatsapp"></i>
                     Share
                   </a>

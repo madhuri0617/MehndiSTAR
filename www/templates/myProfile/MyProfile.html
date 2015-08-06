@@ -9,7 +9,7 @@
     </ion-nav-buttons>
     <div ng-controller="MyProfileCtrl" class="MyDetails list"  ng-hide="!MyID">
         <div class="item item-avatar" id="MyProfileHeader">
-            <img ng-src="{{mpc.OwnInfo.DPPath}}" alt=""  ng-click="openModal(1)" style="cursor:pointer"/>
+            <img ng-src="{{mpc.OwnInfo.DPPathLow}}" alt=""  ng-click="openModal(1)" style="cursor:pointer"/>
             <h2 style="cursor:pointer">{{mpc.OwnInfo.userName}}</h2>
         </div>
     </div>
@@ -34,13 +34,13 @@
                 <div id="PostDetails" class="list card desktop" ng-repeat="posts in mpc.Posts | filter:filterEvenStartFrom(1)" ng-if="(loadinggetOwninfo=== true &&  postLikesAvailable === true)" ng-show="!loading">
                     <div class="headerformat item item-avatar myProfile-header">
                         <a href ng-click="getuid('{{posts.uid}}')" ng-if="mpc.MyId!==posts.uid">
-                            <img ng-src="{{posts.DPPath}}" alt=""/>
+                            <img ng-src="{{posts.DPPathLow}}" alt=""/>
                             <h2>{{posts.userName}}</h2>
                             <small>Posted {{ posts.uploadDate}}</small>
                             <!--<p> {{posts.imageId}}</p>-->
                         </a>
                         <a href="#/app/MyProfile/posts" ng-if="mpc.MyId===posts.uid">
-                            <img ng-src="{{posts.DPPath}}" alt=""/>
+                            <img ng-src="{{posts.DPPathLow}}" alt=""/>
                             <h2  class="fontcolor">{{posts.userName}}</h2>
                             <small>Posted {{ posts.uploadDate}}</small>
                             <!--<p> {{posts.imageId}}</p>-->
@@ -52,7 +52,7 @@
                     <div class="item item-body" > 
                         <!--<i id="DeleteIcon" class="icon ion-android-delete assertive" ng-click="showDeletePost()"></i>-->
                      <a href ng-click="mpc.sendimgID('{{posts._id}}')" ng-model="posts._id">
-                         <img class="full-image" ng-src="{{posts.imagePath}}" alt="" />
+                         <img class="full-image" ng-src="{{posts.imagePathLow}}" alt="" />
                      </a>
                         <!--<img class="full-image" src="img/thumbnail1.png" alt=""/>-->
                     </div>
@@ -65,11 +65,11 @@
                         <i class="icon ion-chatbox"></i>
                         {{posts.cntComments}} Comments
                       </a>
-                       <a class="tab-item" ng-click="shareOnFacebook(posts)">
+                       <a class="tab-item" ng-click="shareFBPopupwithImage(posts)">
                            <i class="icon ion-social-facebook"></i>
                            Share
                        </a>
-                       <a class="tab-item"  id="whatsappshare" ng-click="shareonWhatsapp('{{posts.imagePath}}')">
+                       <a class="tab-item"  id="whatsappshare" ng-click="shareonWhatsapp('{{posts.imagePathHigh}}')">
                            <i class="icon ion-social-whatsapp"></i>
                            Share
                        </a> 
@@ -80,13 +80,13 @@
                 <div id="PostDetails" class="list card desktop" ng-repeat="posts in mpc.Posts | filter:filterEvenStartFrom(0)" ng-if="(loadinggetOwninfo=== true &&  postLikesAvailable === true)" ng-show="!loading">
                     <div class="headerformat item item-avatar myProfile-header">
                         <a href ng-click="getuid('{{posts.uid}}')" ng-if="mpc.MyId!==posts.uid">
-                            <img ng-src="{{posts.DPPath}}" alt=""/>
+                            <img ng-src="{{posts.DPPathLow}}" alt=""/>
                             <h2>{{posts.userName}}</h2>
                             <small>Posted {{ posts.uploadDate}}</small>
                             <!--<p> {{posts.imageId}}</p>-->
                         </a>
                         <a href="#/app/MyProfile/posts" ng-if="mpc.MyId===posts.uid">
-                            <img ng-src="{{posts.DPPath}}" alt=""/>
+                            <img ng-src="{{posts.DPPathLow}}" alt=""/>
                             <h2  class="fontcolor">{{posts.userName}}</h2>
                             <small>Posted {{ posts.uploadDate}}</small>
                             <!--<p> {{posts.imageId}}</p>-->
@@ -98,7 +98,7 @@
                     <div class="item item-body" > 
                         <!--<i id="DeleteIcon" class="icon ion-android-delete assertive" ng-click="showDeletePost()"></i>-->
                      <a href ng-click="mpc.sendimgID('{{posts._id}}')" ng-model="posts._id">
-                         <img class="full-image" ng-src="{{posts.imagePath}}" alt="" />
+                         <img class="full-image" ng-src="{{posts.imagePathLow}}" alt="" />
                      </a>
                         <!--<img class="full-image" src="img/thumbnail1.png" alt=""/>-->
                     </div>
@@ -111,11 +111,11 @@
                         <i class="icon ion-chatbox"></i>
                         {{posts.cntComments}} Comments
                       </a>
-                       <a class="tab-item" ng-click="shareOnFacebook(posts)">
+                       <a class="tab-item" ng-click="shareFBPopupwithImage(posts)">
                            <i class="icon ion-social-facebook"></i>
                            Share
                        </a>
-                       <a class="tab-item"  id="whatsappshare" ng-click="shareonWhatsapp('{{posts.imagePath}}')">
+                       <a class="tab-item"  id="whatsappshare" ng-click="shareonWhatsapp('{{posts.imagePathHigh}}')">
                            <i class="icon ion-social-whatsapp"></i>
                            Share
                        </a> 
@@ -134,13 +134,13 @@
             <div id="PostDetails" class="list card desktop" ng-repeat="posts in mpc.Posts" ng-if="(loadinggetOwninfo=== true &&  postLikesAvailable === true)" ng-show="!loading">
                 <div class="headerformat item item-avatar myProfile-header">
                     <a href ng-click="getuid('{{posts.uid}}')" ng-if="mpc.MyId!==posts.uid">
-                        <img ng-src="{{posts.DPPath}}" alt=""/>
+                        <img ng-src="{{posts.DPPathLow}}" alt=""/>
                         <h2>{{posts.userName}}</h2>
                         <small>Posted {{ posts.uploadDate}}</small>
                         <!--<p> {{posts.imageId}}</p>-->
                     </a>
                     <a href="#/app/MyProfile/posts" ng-if="mpc.MyId===posts.uid">
-                        <img ng-src="{{posts.DPPath}}" alt=""/>
+                        <img ng-src="{{posts.DPPathLow}}" alt=""/>
                         <h2  class="fontcolor">{{posts.userName}}</h2>
                         <small>Posted {{ posts.uploadDate}}</small>
                         <!--<p> {{posts.imageId}}</p>-->
@@ -152,7 +152,7 @@
                 <div class="item item-body" > 
                     <!--<i id="DeleteIcon" class="icon ion-android-delete assertive" ng-click="showDeletePost()"></i>-->
                  <a href ng-click="mpc.sendimgID('{{posts._id}}')" ng-model="posts._id">
-                     <img class="full-image" ng-src="{{posts.imagePath}}" alt="" />
+                     <img class="full-image" ng-src="{{posts.imagePathLow}}" alt="" />
                  </a>
                     <!--<img class="full-image" src="img/thumbnail1.png" alt=""/>-->
                 </div>
@@ -165,11 +165,11 @@
                     <i class="icon ion-chatbox"></i>
                     {{posts.cntComments}} Comments
                   </a>
-                   <a class="tab-item" ng-click="shareOnFacebook(posts)">
+                   <a class="tab-item" ng-click="shareFBPopupwithImage(posts)">
                        <i class="icon ion-social-facebook"></i>
                        Share
                    </a>
-                   <a class="tab-item"  id="whatsappshare" ng-click="shareonWhatsapp('{{posts.imagePath}}')">
+                   <a class="tab-item"  id="whatsappshare" ng-click="shareonWhatsapp('{{posts.imagePathHigh}}')">
                        <i class="icon ion-social-whatsapp"></i>
                        Share
                    </a> 
@@ -183,7 +183,7 @@
         </div>
     </ion-content>
     </ion-view>
-   <script id="EditProfilePicModal.html" type="text/ng-template">
+<script id="EditProfilePicModal.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-assertive">
         <i id="ClosePopup" class="icon ion-close-round" ng-click="closeModal(1)"></i>

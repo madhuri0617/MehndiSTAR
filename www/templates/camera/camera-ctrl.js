@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('CameraCtrl', ['$location','$cordovaCamera', '$scope','$rootScope','cameraUploadService','$ionicScrollDelegate','$ionicLoading','$ionicPopup','$localstorage','$log', function CameraCtr($location,$cordovaCamera, $scope,$rootScope,cameraUploadService,$ionicScrollDelegate,$ionicLoading,$ionicPopup,$localstorage,$log) {
+.controller('CameraCtrl', ['$timeout','$state','$location','$cordovaCamera', '$scope','$rootScope','cameraUploadService','$ionicScrollDelegate','$ionicLoading','$ionicPopup','$localstorage','$log', function CameraCtr($timeout,$state,$location,$cordovaCamera, $scope,$rootScope,cameraUploadService,$ionicScrollDelegate,$ionicLoading,$ionicPopup,$localstorage,$log) {
     $scope.apk = localStorage.getItem("MehndiSTARapk");
         $log.debug("apk: "+$scope.apk);
         if($scope.apk === 'true')
@@ -43,6 +43,7 @@ angular.module('starter.controllers')
           }
         });
     };
+    $localstorage.set('CurrentPage',$state.current.name);
     $localstorage.set('FromPage','app/camera');
     $scope.MyID=$localstorage.get('sessionMyID');
     if(!$scope.MyID)
@@ -62,6 +63,7 @@ angular.module('starter.controllers')
     angular.element(document.querySelector("#tabCamera")).addClass("active");
     $scope.form={};
     $scope.loading = true;
+    $localstorage.set('CurrentPage',$state.current.name);
     $localstorage.set('FromPage','app/camera');
     $scope.loadingWheel = function() {
         $ionicLoading.show({
@@ -122,13 +124,13 @@ angular.module('starter.controllers')
     $scope.getPhoto = function () 
     {
         var options = { 
-            quality : 75, 
+            quality : 100, 
             destinationType : Camera.DestinationType.DATA_URL, 
             sourceType : Camera.PictureSourceType.CAMERA, 
             allowEdit : true,
             encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 300,
-            targetHeight: 300,
+            targetWidth: 2000,
+            targetHeight: 2000,
             popoverOptions: CameraPopoverOptions,
             saveToPhotoAlbum: false
         };
@@ -139,7 +141,8 @@ angular.module('starter.controllers')
 //            alert(imageData);
             $scope.fileUpload = "data:image/jpeg;base64," + imageData;
         }, function (err) {
-                $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
+            $scope.msg = "An error occured: " + err;
+//                $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
                 $scope.errorPopup($scope.msg);
         });
     };  
@@ -181,21 +184,25 @@ angular.module('starter.controllers')
 //                
             //service call
             cameraUploadService.uploadCameraImage($scope.uploadCameraDetails).then(function (response) {
-                $log.debug("uploadImage", response.data);
-                $scope.uploadPopup();
-                $scope.loading = false;
-                $ionicLoading.hide();
-                $ionicScrollDelegate.scrollTop();
-                $('#Selectedimage').hide();
-                 $('#Selectedimage').attr('src', "");
-                $scope.form.form.desc = "";
-                $scope.toggleGroup1(3);
-                $('input:checkbox').removeAttr('checked');
-                $scope.tagList=[{name:"Common",check:true,disable:true}];
-                 var ogList=["Hand Design", "Feet Design","Indian","Pakistani","Moghlai","Arabic","Indo-Arabic","Bridal"];
-                for(var i=0;i<ogList.length;i++)
+                $timeout(callAtTimeout, 10000);
+                function callAtTimeout() 
                 {
-                   $scope.tagList.push({name:ogList[i],check:false});
+                    $log.debug("uploadImage", response.data);
+                    $scope.uploadPopup();
+                    $scope.loading = false;
+                    $ionicLoading.hide();
+                    $ionicScrollDelegate.scrollTop();
+                    $('#Selectedimage').hide();
+                     $('#Selectedimage').attr('src', "");
+                    $scope.form.form.desc = "";
+                    $scope.toggleGroup1(3);
+                    $('input:checkbox').removeAttr('checked');
+                    $scope.tagList=[{name:"Common",check:true,disable:true}];
+                     var ogList=["Hand Design", "Feet Design","Indian","Pakistani","Moghlai","Arabic","Indo-Arabic","Bridal"];
+                    for(var i=0;i<ogList.length;i++)
+                    {
+                       $scope.tagList.push({name:ogList[i],check:false});
+                    }
                 }
             },
             function (error) {

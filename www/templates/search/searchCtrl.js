@@ -17,7 +17,7 @@ angular.module('starter.controllers')
     };
     return DesignRetriever;
 })
- .controller('SearchDesignsController', function($ionicPopup,$location,$filter,$ionicLoading,$scope, DesignRetriever,searchService,$ionicScrollDelegate,$rootScope,$localstorage,FullImgService,CommonServiceDate,$log){
+ .controller('SearchDesignsController', function($state,$ionicPopup,$location,$filter,$ionicLoading,$scope, DesignRetriever,searchService,$ionicScrollDelegate,$rootScope,$localstorage,FullImgService,CommonServiceDate,$log){
 //$scope.loading = true;
     $scope.empty=false;
     $scope.MyId = $localstorage.get('sessionMyID');
@@ -56,6 +56,7 @@ angular.module('starter.controllers')
             template: '<ion-spinner icon="circles"/>'
         });
     };
+    $localstorage.set('CurrentPage',$state.current.name);
     $localstorage.set('FromPage','app/search');
     function setTabClass() {
        angular.element(document.querySelector("#tabSearch")).addClass("active");

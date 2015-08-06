@@ -14,7 +14,7 @@ angular.module('starter.controllers')
             }
         };
     })
-    .controller('FullSizeImgCtrl', ['OpenFB','$http','$scope','$rootScope','FullImgService','$ionicPopup','$location','$cordovaSocialSharing','$ionicLoading','$localstorage','$stateParams','CommonServiceDate','commentsService','$ionicScrollDelegate','$log', function(OpenFB,$http,$scope,$rootScope,FullImgService,$ionicPopup,$location,$cordovaSocialSharing,$ionicLoading,$localstorage,$stateParams,CommonServiceDate,commentsService,$ionicScrollDelegate,$log)
+    .controller('FullSizeImgCtrl', ['$timeout','$state','OpenFB','$http','$scope','$rootScope','FullImgService','$ionicPopup','$location','$cordovaSocialSharing','$ionicLoading','$localstorage','$stateParams','CommonServiceDate','commentsService','$ionicScrollDelegate','$log', function($timeout,$state,OpenFB,$http,$scope,$rootScope,FullImgService,$ionicPopup,$location,$cordovaSocialSharing,$ionicLoading,$localstorage,$stateParams,CommonServiceDate,commentsService,$ionicScrollDelegate,$log)
     {      
         $log.debug("inside full size controller");
         $scope.apk = localStorage.getItem("MehndiSTARapk");
@@ -63,7 +63,8 @@ angular.module('starter.controllers')
         fsc.MyId = $localstorage.get('sessionMyID');
         $log.debug("MyId in userProfile controller: "+fsc.MyId);
         $scope.showPara = true;
-        $localstorage.set('FromPage','app/FullSizeImage/'+$scope.fullsizeimageId);
+        $localstorage.set('CurrentPage',$state.current.name);
+        $localstorage.set('FromPage','app/fullsizeimage/'+$scope.fullsizeimageId);
         $log.debug("Image ID: " +$rootScope.sessionImageID);
         fsc.like='';
         fsc.MyId;
@@ -85,11 +86,11 @@ angular.module('starter.controllers')
                 var dateStr = new Date(response.data.uploadDate);
                 var dateToShow = CommonServiceDate.getPostDate(dateStr);
                 response.data.uploadDate = dateToShow;
-                $scope.loading = false;
-                $ionicLoading.hide();
+                
+                
                 $scope.likesCount = fsc.ImgDetails.cntLikes;
                 $scope.commentsCount = fsc.ImgDetails.cntComments;
-                $scope.shareimagePath = fsc.ImgDetails.imagePath;
+                $scope.shareimagePathHigh = fsc.ImgDetails.imagePathHigh;
                 if(!fsc.ImgDetails.des)
                 {
                     $scope.showPara = false;
@@ -98,6 +99,12 @@ angular.module('starter.controllers')
                 fsc.like=fsc.ImgDetails.liked;
                 $log.debug('imgDetails userID: ',fsc.ImgDetails.uid);
                 fsc.likeClr();
+//                $timeout(callAtTimeout, 10000);
+//                function callAtTimeout() 
+//                {
+                    $scope.loading = false;
+                    $ionicLoading.hide();
+//                }
             },
             function (error) {
                 $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
@@ -207,46 +214,12 @@ angular.module('starter.controllers')
                 okType: ' button-upload'
             });
         };
-        $scope.shareFacebook = function (postDetails) {
-//                $log.debug("inside share");
-//          alert("imageshare"+ imgPath);
-            $log.debug("postdetails: ",postDetails);
-            var MyID=$localstorage.get('sessionMyID');
-            if(!MyID)
-            {
-                $scope.loginPopup();
-            }
-            else{
-                $scope.loadingWheel();
-                OpenFB.get('/me')
-                    .success(function (user) {
-     //                   alert("token refreshed");
-                });
-                $log.debug('MyID:',$localstorage.get('sessionMyID')); 
-                $scope.item = {
-                    picture: postDetails.imagePath,
-                    link: 'http://mehndistar.com/#/app/FullSizeFb/'+ postDetails.postId
-                };
-                OpenFB.post('/me/feed', $scope.item)
-                    .success(function () {
-//                        alert("This item has been shared on facebook");
-                        $scope.loading = false;
-                        $ionicLoading.hide();
-                        $scope.sharePopup();
-                    })
-                    .error(function(data) {
-//                        $scope.errorPopup(data.error.message);
-                        $scope.errorPopup("Your token has expired! You need to re-login to MehndiSTAR to share this post on Facebook.");
-                        $scope.loading = false;
-                        $ionicLoading.hide();
-                    });
-            }
-        };
+        
         fsc.gotoZoom = function()
         {
             $log.debug("gotoZoom");
-//          $rootScope.imageToZoom = $scope.shareimagePath;
-            $localstorage.set('imageToZoom',$scope.shareimagePath);
+//          $rootScope.imageToZoom = $scope.shareimagePathHigh;
+            $localstorage.set('imageToZoom',$scope.shareimagePathHigh);
             $rootScope.controlzoom = localStorage.getItem("controlZoom");
 //            alert($rootScope.controlzoom);
             if($rootScope.controlzoom === 'zoomImageController')

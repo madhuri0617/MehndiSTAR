@@ -11,7 +11,7 @@ angular.module('Services')
     };
     this.uploadDpCamera = function (PostData) {
             $log.debug(" uploadDpCamera PostData"+ PostData);               
-            return $http.post(baseURL + '/profilePicCamera/updateCamera', PostData).then(function (response) {
+            return $http.post( baseURL + '/profilePicCamera/updateCamera', PostData).then(function (response) {
                 return response;
             });
     };

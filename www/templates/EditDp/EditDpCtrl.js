@@ -1,5 +1,5 @@
     angular.module('starter.controllers')
-.controller('EditDpCtrl', ['$http','$scope','$rootScope','EditDpService','$location','$state','$cordovaCamera','$ionicScrollDelegate','$ionicLoading','$ionicPopup','$localstorage','$log', function EditDpCtrl($http,$scope,$rootScope,EditDpService,$location,$state,$cordovaCamera,$ionicScrollDelegate,$ionicLoading,$ionicPopup,$localstorage,$log) 
+.controller('EditDpCtrl', ['$timeout','$http','$scope','$rootScope','EditDpService','$location','$state','$cordovaCamera','$ionicScrollDelegate','$ionicLoading','$ionicPopup','$localstorage','$log', function EditDpCtrl($timeout,$http,$scope,$rootScope,EditDpService,$location,$state,$cordovaCamera,$ionicScrollDelegate,$ionicLoading,$ionicPopup,$localstorage,$log) 
    {
         $scope.apk = localStorage.getItem("MehndiSTARapk");
         $log.debug("apk: "+$scope.apk);
@@ -64,7 +64,8 @@
                 template: '<ion-spinner icon="circles"/>'
             });
         };
-        $localstorage.set('FromPage','app/DpChangeGallery');
+        $localstorage.set('CurrentPage',$state.current.name);
+        $localstorage.set('FromPage','app/dpchangegallery');
         $scope.uploadPopup = function() {
             var alertPopup = $ionicPopup.alert({
               title: 'Success',
@@ -87,13 +88,13 @@
         $scope.getPhoto = function () 
         {
             var options = { 
-                quality : 75, 
+                quality : 100, 
                 destinationType : Camera.DestinationType.DATA_URL, 
                 sourceType : Camera.PictureSourceType.CAMERA, 
                 allowEdit : true,
                 encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 300,
-                targetHeight: 300,
+                targetWidth: 2000,
+                targetHeight: 2000,
                 popoverOptions: CameraPopoverOptions,
                 saveToPhotoAlbum: false
             };
@@ -102,7 +103,8 @@
                     $('#Selectedimage').attr('src', "data:image/jpeg;base64,"+imageData);
                     $scope.fileUpload = "data:image/jpeg;base64,"+imageData;
             }, function (err) {
-                $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
+                $scope.msg = "An error occured: " + err;
+//                $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
                 $scope.errorPopup($scope.msg);
             });
         };      
@@ -128,14 +130,17 @@
                 
                 //service call
                 EditDpService.uploadDpCamera($scope.uploadCameraDetails).then(function (response) {
-                $log.debug("uploadImage", response.data);
-
-                $scope.uploadPopup();
-                $scope.form=null;
-                $scope.loading = false;
-                $ionicLoading.hide();
-                $ionicScrollDelegate.scrollTop();
+                    $timeout(callAtTimeout, 10000);
+                    function callAtTimeout() 
+                    {
+                        $log.debug("uploadImage", response.data);
+                        $scope.uploadPopup();
+                        $scope.form=null;
+                        $scope.loading = false;
+                        $ionicLoading.hide();
+                        $ionicScrollDelegate.scrollTop();
                 //$location.path('app/MyProfile');
+                    }
                 },
                 function (error) {
                     $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
@@ -162,13 +167,17 @@
                 formData.append("userPhoto", photo);
                 formData.append("userID", $localstorage.get('sessionMyID'));
                 EditDpService.uploadDp(formData).then(function (response) {
-                    $log.debug("uploadImage", response.data);
-                    $scope.uploadPopup();
-                    $scope.form=null;
-                    $scope.loading = false;
-                    $ionicLoading.hide();
-                    $ionicScrollDelegate.scrollTop();
-                    //$('#Selectedimage').hide();
+                    $timeout(callAtTimeout, 10000);
+                    function callAtTimeout() 
+                    {
+                        $log.debug("uploadImage", response.data);
+                        $scope.uploadPopup();
+                        $scope.form=null;
+                        $scope.loading = false;
+                        $ionicLoading.hide();
+                        $ionicScrollDelegate.scrollTop();
+                        //$('#Selectedimage').hide();
+                    }
                 },
                 function (error) {
                     $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";

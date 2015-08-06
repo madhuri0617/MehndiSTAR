@@ -1,31 +1,29 @@
 angular.module('starter.controllers', ['ionic'])
-.controller('AppCtrl',function($state,$scope,$rootScope,OpenFB,$location,$stateParams,CommonServiceDate,homeService,$ionicPopup,$ionicScrollDelegate,$ionicLoading,$localstorage,FullImgService,$log,$timeout) {   
+.controller('AppCtrl',function($ionicSideMenuDelegate,$state,$scope,$rootScope,OpenFB,$location,$stateParams,CommonServiceDate,homeService,$ionicPopup,$ionicScrollDelegate,$ionicLoading,$localstorage,FullImgService,$log,$timeout) {   
     
     $log.debug("inside controller ");
+    $scope.apk = localStorage.getItem("MehndiSTARapk");
+    $log.debug("apk: "+$scope.apk);
     $scope.mobile = localStorage.getItem("mobile");
-//    console.log($state.current.name);
+//    $rootScope.MehndiSTARapk = localStorage.getItem("MehndiSTARapk");
 //    google analytics
-    $timeout(callAtTimeout, 10000);
-    function callAtTimeout() 
-    {
-        $scope.apk = localStorage.getItem("MehndiSTARapk");
-        $log.debug("Timeout occurred");
-        $log.debug("apk: "+$scope.apk);
-        if($scope.apk === 'true')
-        {
+    document.addEventListener("deviceready", function() {
             $log.debug("analytics worked for mobile..");
-            if(typeof analytics !== undefined) { analytics.trackView("Home");
-                        $log.debug("analytics on app controller");
+            if(typeof analytics !== undefined) 
+            { 
+                analytics.trackView("Home");
+                $log.debug("analytics on home page controller");
             }
-        }
-        else{
-                    $log.debug("Home screen");
-            ga('send', 'pageview', {
-                'page': '/Home',
-                'title': 'Home'
-            });
-        }
+    });
+  
+    if($scope.apk !== 'true'){
+        $log.debug("Home screen");
+        ga('send', 'pageview', {
+            'page': '/Home',
+            'title': 'Home'
+        });
     }
+    
     $rootScope.zoomImagePage = false;
     $scope.tagFromURL = $stateParams.tagNm ;
     $scope.categoryFromURL = $stateParams.category;
@@ -44,6 +42,7 @@ angular.module('starter.controllers', ['ionic'])
        angular.element(document.querySelector("#tabHome")).addClass("active");
     };
     setTabClass();
+    $localstorage.set('CurrentPage',$state.current.name);
     $localstorage.set('FromPage','app/home');
     $scope.MyId ;
     if ((typeof $localstorage.get('sessionMyID'))=== 'undefined') {
@@ -78,6 +77,7 @@ angular.module('starter.controllers', ['ionic'])
           }
         });
     };
+
     $scope.successPopup = function(msg) {
       $ionicPopup.alert({
         title: 'Success',
@@ -95,7 +95,7 @@ angular.module('starter.controllers', ['ionic'])
                 alertPopup.then(function(result) {         
                         ionic.Platform.exitApp();          
                 });
-    }
+    };
     $scope.errorPopup = function(msg) {
         $ionicPopup.alert({
           title: 'Error',
@@ -119,21 +119,24 @@ angular.module('starter.controllers', ['ionic'])
     };
     $scope.getPopular = function(tagNm)
     {
-        if($scope.apk === 'true')
+        //google analytics for particular tag
+        document.addEventListener("deviceready", function() {
+//            alert("devicsready from getPopular");
+                $log.debug("analytics worked for mobile..");
+                if(typeof analytics !== undefined) 
+                { 
+                    analytics.trackView("Home-"+ tagNm);
+                    $log.debug("analytics on " + tagNm);
+                }
+            });
+        if($scope.apk!== 'true')
         {
-            $log.debug("analytics worked for mobile..");
-            if(typeof analytics !== undefined) { analytics.trackView("Home-"+ tagNm);
-                        $log.debug("analytics on " + tagNm);
-            }
-        }
-        else{
             $log.debug("analytics on "+ tagNm);
             ga('send', 'pageview', {
                 'page': '/Home-'+ tagNm,
                 'title': 'Home-' + tagNm
             });
-        }
-        
+        }; 
         $scope.populartab = true;
         $scope.loadingWheel();
 //        $location.path("app/home/"+tagNm + "/" + $scope.categoryFromURL);
@@ -186,6 +189,7 @@ angular.module('starter.controllers', ['ionic'])
            $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
            $scope.errorPopup($scope.msg);       
            $scope.loading = false;
+           $scope.moredata = true;
            $ionicLoading.hide();
             $log.debug("Error popular", error);
             }
@@ -229,10 +233,17 @@ angular.module('starter.controllers', ['ionic'])
     $scope.getTabClass = function (tabNum) {
         return tabClasses[tabNum];
     };
+    
     $scope.setActiveTab = function (tabNum) {
+        if(angular.element(document.querySelector("#menutoggle")).hasClass("menu-open"))
+        {
+            $ionicSideMenuDelegate.toggleLeft();	
+        }
+        
         if(tabNum === 2)
         {
-           $localstorage.set('FromPage','app/galleryUpload');
+            $localstorage.set('CurrentPage','app.galleryupload');
+           $localstorage.set('FromPage','app/galleryupload');
            var MyID=$localstorage.get('sessionMyID');
            if(!MyID)
            {
@@ -246,6 +257,7 @@ angular.module('starter.controllers', ['ionic'])
         }
         if(tabNum === 3)
         {
+            $localstorage.set('CurrentPage','app.camera');
            $localstorage.set('FromPage','app/camera');
            var MyID=$localstorage.get('sessionMyID');
            if(!MyID)
@@ -278,22 +290,25 @@ angular.module('starter.controllers', ['ionic'])
     //Initialize
     initTabs();
     $scope.getRecent = function(tagNm){
-        $scope.populartab = false;
-        $scope.loadingWheel();
-        if($scope.apk === 'true')
-        {
+        //google analytics on particular tag
+        document.addEventListener("deviceready", function() {
             $log.debug("analytics worked for mobile..");
-            if(typeof analytics !== undefined) { analytics.trackView("Home-"+ tagNm);
-                        $log.debug("analytics on " + tagNm);
+            if(typeof analytics !== undefined) 
+            { 
+                analytics.trackView("Home-"+ tagNm);
+                $log.debug("analytics on " + tagNm);
             }
-        }
-        else{
+        });
+        if($scope.apk!== 'true')
+        {
             $log.debug("analytics on "+ tagNm);
             ga('send', 'pageview', {
                 'page': '/Home-'+ tagNm,
                 'title': 'Home-' + tagNm
             });
-        }
+        };
+        $scope.populartab = false;
+        $scope.loadingWheel();
 //        $location.path("app/home/"+tagNm + "/" + category);
         $scope.recent = {
                 beg : 0,																// begining of response set used for scroll down
@@ -332,18 +347,16 @@ angular.module('starter.controllers', ['ionic'])
            $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
            $scope.errorPopup($scope.msg);
            $scope.loading = false;
+           $scope.moredata = true;
            $ionicLoading.hide();
             $log.debug("Error recent", error);
         });
     };
     if($scope.categoryFromURL === 'popular')
     {
-//        if($localstorage.get('internet')==='false')
-//        {
         $scope.getPopular($scope.tagFromURL);
         $scope.IsPopularTabActive = true;
         $scope.IsRecentTabActive = false;  
-//        }
     }
     else if($scope.categoryFromURL === 'recent')
     {
@@ -412,7 +425,7 @@ angular.module('starter.controllers', ['ionic'])
                     }
                 });
             }
-    }
+    };
     $scope.revokePermissions = function () {
         OpenFB.revokePermissions().then(
             function () {
@@ -554,6 +567,7 @@ angular.module('starter.controllers', ['ionic'])
     $scope.me={};
     $scope.apk = localStorage.getItem("MehndiSTARapk");
         $log.debug("apk: "+$scope.apk);
+        //google analytics on login
         if($scope.apk === 'true')
         {
             $log.debug("apk on loginCtrl..");
@@ -562,9 +576,10 @@ angular.module('starter.controllers', ['ionic'])
                 analytics.trackView('Login');
             });
         }
-        else{
+        if($scope.apk !== 'true')
+        {
                 $log.debug("login screen");
-            ga('send', 'pageview', {
+                ga('send', 'pageview', {
                 'page': '/Login',
                 'title': 'Login'
             });
@@ -577,6 +592,7 @@ angular.module('starter.controllers', ['ionic'])
     }
     if(!$localstorage.get('sessionMyID'))
     {
+        $localstorage.set('CurrentPage','app.login');
         $localstorage.set('IsLoggedIn','false');
 //                $localstorage.set('FromPage','app/login');
         $rootScope.IsLoggedIn=$localstorage.get('IsLoggedIn');
@@ -624,9 +640,12 @@ angular.module('starter.controllers', ['ionic'])
                     {
                         $scope.me.gender='O';
                     }
+                    
                           //  alert('id= '+user.id+' name= '+user.name+' email= '+user.email+' gender= '+user.gender+' age= '+user.age);
-                    $http.post('http://api.mehndistar.com/login',$scope.me).success(function(response)
+                    $http.post('http://api.mehndistar.com/v2/login',$scope.me).success(function(response)
                     {
+//                         $http.post('http://192.168.2.135:8181/v2/login',$scope.me).success(function(response)
+//                    {
                         $scope.Myid=response._id;
                         $scope.userName = response.userName;
                         $scope.email = response.email;
@@ -661,47 +680,117 @@ angular.module('starter.controllers', ['ionic'])
     });
 })
     /*================================== share post on fb ===============================*/
-.controller("ShareController", function($ionicPopup,OpenFB,$localstorage,$ionicLoading,$scope, $cordovaSocialSharing,$log) {
-        $scope.sharePopup = function() {
+.controller("ShareController", function($ionicModal,$ionicPopup,OpenFB,$localstorage,$ionicLoading,$scope, $cordovaSocialSharing,$log) {
+//        $scope.sharePopup = function() {
+//            $ionicPopup.alert({
+//              title: 'Success',
+//              template: 'This post has been shared on your Facebook page.',
+//              okType: ' button-upload'
+//        });
+//    };
+//    $scope.shareFB = function()
+//    {
+//        $log.debug("postdetails: ",$scope.postDetails);
+//        $log.debug("form.form.desc: ",$scope.form.form.desc);
+//      var MyID=$localstorage.get('sessionMyID');
+//      if(!MyID)
+//      {
+//          $scope.loginPopup();
+//      }
+//      else{
+//        $scope.loadingWheel();
+//        OpenFB.get('/me')
+//         .success(function (user) {
+////                   alert("token refreshed");
+//        });
+//         $log.debug('MyID:',$localstorage.get('sessionMyID'));
+//          $scope.item = {
+//              message: $scope.form.form.desc,
+//              picture: $scope.postDetails.imagePathHigh,
+////              link: 'http://mehndistar.com/#/app/FullSizeFb/'+ $scope.postDetails._id
+//                link: 'https://play.google.com/store/apps/details?id=com.systenics.mehndistar'
+//          };
+//          OpenFB.post('/me/feed', $scope.item)
+//              .success(function () {
+////                        alert("This item has been shared on facebook");
+//                  $scope.loading = false;
+//                  $ionicLoading.hide();
+//                  $scope.sharePopup();
+//              })
+//              .error(function(data) {
+//                                console.log("error in sharing:",data);
+//                        $scope.errorPopup(data.error.message);
+////                  $scope.errorPopup("Your token has expired! You need to re-login to MehndiSTAR to share this post on Facebook.");
+//                  $scope.loading = false;
+//                  $ionicLoading.hide();
+//              });
+//      }
+//    };
+    $scope.sharePopup = function() {
             $ionicPopup.alert({
               title: 'Success',
               template: 'This post has been shared on your Facebook page.',
               okType: ' button-upload'
         });
     };
-    //SHARE ON facebbok
-    $scope.shareOnFacebook = function (postDetails) {
-      $log.debug("postdetails: ",postDetails);
-      var MyID=$localstorage.get('sessionMyID');
-      if(!MyID)
-      {
-          $scope.loginPopup();
-      }
-      else{
-        $scope.loadingWheel();
-        OpenFB.get('/me')
-         .success(function (user) {
-//                   alert("token refreshed");
+    $scope.shareFBPopupwithImage = function(postDetails) {
+         var MyID=$localstorage.get('sessionMyID');   
+        if(!MyID)
+                {
+                    $scope.loginPopup();
+                }
+                else{
+        $scope.postDetails = postDetails;
+        $scope.form = {};
+                $log.debug("postdetais:",$scope.postDetails);
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Share with Facebook',
+          //template: 'Are you sure you want to delete this Post?',
+          templateUrl:'PopUps/sharefb.html',
+          scope: $scope,
+          cssClass: '', // String, The custom CSS class name
+          cancelText: '', // String (default: 'Cancel'). The text of the Cancel button.
+          cancelType: '',//'button button-small button-default', // String (default: 'button-default'). The type of the Cancel button.
+          okText: 'Share', // String (default: 'OK'). The text of the OK button.
+          okType: ' button-upload' // String (default: 'button-positive'). The type of the OK button.
         });
-         $log.debug('MyID:',$localstorage.get('sessionMyID'));
-          $scope.item = {
-              picture: postDetails.imagePath,
-              link: 'http://mehndistar.com/#/app/FullSizeFb/'+ postDetails._id
-          };
-          OpenFB.post('/me/feed', $scope.item)
-              .success(function () {
-//                        alert("This item has been shared on facebook");
-                  $scope.loading = false;
-                  $ionicLoading.hide();
-                  $scope.sharePopup();
-              })
-              .error(function(data) {
-//                        $scope.errorPopup(data.error.message);
-                  $scope.errorPopup("Your token has expired! You need to re-login to MehndiSTAR to share this post on Facebook.");
-                  $scope.loading = false;
-                  $ionicLoading.hide();
-              });
-      }
+        confirmPopup.then(function(res) {
+          if(res) {
+                $log.debug("postdetails: ",$scope.postDetails);
+                $log.debug("form.form.desc: ",$scope.form.form.desc);
+                         
+                  $scope.loadingWheel();
+                  OpenFB.get('/me')
+                   .success(function (user) {
+          //                   alert("token refreshed");
+                  });
+                   $log.debug('MyID:',$localstorage.get('sessionMyID'));
+                    $scope.item = {
+                        message: $scope.form.form.desc,
+                        picture: $scope.postDetails.imagePathHigh,
+          //              link: 'http://mehndistar.com/#/app/FullSizeFb/'+ $scope.postDetails._id
+                          link: 'https://play.google.com/store/apps/details?id=com.systenics.mehndistar'
+                    };
+                    OpenFB.post('/me/feed', $scope.item)
+                        .success(function () {
+          //                        alert("This item has been shared on facebook");
+                            $scope.loading = false;
+                            $ionicLoading.hide();
+                            $scope.sharePopup();
+                        })
+                        .error(function(data) {
+//                                          console.log("error in sharing:",data);
+//                                  $scope.errorPopup(data.error.message);
+                            $scope.errorPopup("Your token has expired! You need to re-login to MehndiSTAR to share this post on Facebook.");
+                            $scope.loading = false;
+                            $ionicLoading.hide();
+                        });
+//              };
+            } else {
+            $log.debug('cancel');
+          }
+        });
+        }
     };
     $scope.shareonWhatsapp = function(imagePath) {
         $cordovaSocialSharing

@@ -1,9 +1,38 @@
 
 //var baseURL = 'http://api-ratemymehendi.rhcloud.com';
-//var baseURL = 'http://158.69.96.25:8181';
-var baseURL = 'http://api.mehndistar.com';
+//var baseURL = 'http://192.168.2.135:8181';
+var baseURL = 'http://api.mehndistar.com/v2';
 var app = angular.module('starter', ['ngAnimate','ionic','openfb','starter.controllers','ngCordova','appFilereader','autocomplete','Services','ngStorage','ionic.utils'])
 .run(['$rootScope', '$ionicPlatform','OpenFB','$localstorage','$ionicPopup','$log',function($rootScope, $ionicPlatform,OpenFB,$localstorage,$ionicPopup,$log) {    
+//      alert("inside app.js**********************");  
+      $rootScope.MehndiSTARapk=$localstorage.get('MehndiSTARapk');
+      document.addEventListener("deviceready", function() {
+          navigator.splashscreen.hide();
+            if(typeof analytics !== undefined) {
+                analytics.startTrackerWithId("UA-65574899-1");
+                 $log.debug(analytics);
+                 $log.debug("analytics worked for mobile on app.js..***************");
+            } else {
+                 $log.debug("Google Analytics Unavailable");
+            }                       
+
+    });
+    //        code for google analytics.
+        $log.debug("inside app.js above google analytics");
+        if($rootScope.MehndiSTARapk !=='true'){ 
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                    $log.debug("analytics worked for browser..");
+                    ga('create', 'UA-65574899-2', 'auto');
+                    ga('send', 'pageview', {
+                    'page': '/App',
+                    'title': 'App'
+                  });
+            }
+        
+    $log.debug("inside app.js",$rootScope.MehndiSTARapk);
     $rootScope.sessionMyID=$localstorage.get('sessionMyID');
     $log.debug("$rootScope.sessionMyID",$rootScope.sessionMyID);
     $rootScope.IsLoggedIn=$localstorage.get('IsLoggedIn');
@@ -11,8 +40,12 @@ var app = angular.module('starter', ['ngAnimate','ionic','openfb','starter.contr
 //    OpenFB.init('896457927079961','https://www.facebook.com/connect/login_success.html');
 //   OpenFB.init('896457927079961','http://192.168.2.138:8100/oauthcallback.html');
     OpenFB.init('896457927079961','http://mehndistar.com/oauthcallback.html');
-    $ionicPlatform.ready(function() {  
-//        alert("hii");
+    $ionicPlatform.ready(function() {
+        if(navigator.splashscreen){
+                setTimeout(function () {
+                    navigator.splashscreen.hide();
+                }, 100);
+        }
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
@@ -52,34 +85,24 @@ var app = angular.module('starter', ['ngAnimate','ionic','openfb','starter.contr
             }
         });
         
-//        code for google analytics.
-         $rootScope.MehndiSTARapk=$localstorage.get('MehndiSTARapk');
-        if($rootScope.MehndiSTARapk ==='true'){          
-            if(typeof analytics !== undefined) {
-                analytics.startTrackerWithId("UA-65574899-1");
-                 $log.debug(analytics);
-                 $log.debug("analytics worked for mobile..");
-            } else {
-                 $log.debug("Google Analytics Unavailable");
-            }
-                       
-        }
-        else{
-              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-                    $log.debug("analytics worked for browser..");
-                    ga('create', 'UA-65574899-2', 'auto');
-                    ga('send', 'pageview', {
-                    'page': '/App',
-                    'title': 'App'
-                  });
-            }
+////        code for google analytics.
+//        $log.debug("inside app.js above google analytics");
+//        if($rootScope.MehndiSTARapk !=='true'){ 
+//              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+//                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+//                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+//                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+//                    $log.debug("analytics worked for browser..");
+//                    ga('create', 'UA-65574899-2', 'auto');
+//                    ga('send', 'pageview', {
+//                    'page': '/App',
+//                    'title': 'App'
+//                  });
+//            }
 //        
     });
     $ionicPlatform.registerBackButtonAction(function (event) {
-        if($localstorage.get('FromPage')==="app/home" ||  $localstorage.get('IsLoggedIn')==='true'){
+        if($localstorage.get('FromPage')==="app/home" && $localstorage.get('CurrentPage') === "app.home"){
             if($localstorage.get('sessionMyID'))
             {
                 var confirmPopup = $ionicPopup.confirm({

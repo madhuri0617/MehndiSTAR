@@ -1,5 +1,5 @@
  angular.module('starter.controllers')
-.controller('EditPicCtrl', ['$http','$scope','$rootScope','$location','EditUploadedPicService','$ionicLoading','$ionicScrollDelegate','$ionicPopup','$localstorage','$log', function EditPicCtrl($http,$scope,$rootScope,$location,EditUploadedPicService,$ionicLoading,$ionicScrollDelegate,$ionicPopup,$localstorage,$log) {  
+.controller('EditPicCtrl', ['$state','$http','$scope','$rootScope','$location','EditUploadedPicService','$ionicLoading','$ionicScrollDelegate','$ionicPopup','$localstorage','$log', function EditPicCtrl($state,$http,$scope,$rootScope,$location,EditUploadedPicService,$ionicLoading,$ionicScrollDelegate,$ionicPopup,$localstorage,$log) {  
     $scope.apk = localStorage.getItem("MehndiSTARapk");
     $log.debug("apk: "+$scope.apk);
     if($scope.apk === 'true')
@@ -65,7 +65,8 @@
         });
     };
     $scope.mobile = localStorage.getItem("mobile");
-    $localstorage.set('FromPage','app/EditUploadedPicDetails');
+    $localstorage.set('CurrentPage',$state.current.name);
+    $localstorage.set('FromPage','app/edituploadedpicdetails');
     $scope.loadingWheel();
     $scope.uploadPopup = function() {
         var alertPopup = $ionicPopup.alert({

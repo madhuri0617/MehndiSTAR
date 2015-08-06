@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('GalleryUploadCtrl', ['$http','$scope','$rootScope','galleryUploadService','$location','$state','$ionicScrollDelegate','$ionicLoading','$ionicPopup','$localstorage','cameraUploadService','$log',  function ($http,$scope,$rootScope,galleryUploadService,$location,$state,$ionicScrollDelegate,$ionicLoading,$ionicPopup,$localstorage,cameraUploadService,$log){
+.controller('GalleryUploadCtrl', ['$timeout','$http','$scope','$rootScope','galleryUploadService','$location','$state','$ionicScrollDelegate','$ionicLoading','$ionicPopup','$localstorage','cameraUploadService','$log',  function ($timeout,$http,$scope,$rootScope,galleryUploadService,$location,$state,$ionicScrollDelegate,$ionicLoading,$ionicPopup,$localstorage,cameraUploadService,$log){
     $scope.apk = localStorage.getItem("MehndiSTARapk");
     $log.debug("apk: "+$scope.apk);
     if($scope.apk === 'true')
@@ -43,7 +43,8 @@ angular.module('starter.controllers')
           }
         });
     };
-    $localstorage.set('FromPage','app/galleryUpload');
+    $localstorage.set('CurrentPage',$state.current.name);
+    $localstorage.set('FromPage','app/galleryupload');
     $scope.MyID=$localstorage.get('sessionMyID');
     if(!$scope.MyID)
     {
@@ -63,7 +64,8 @@ angular.module('starter.controllers')
     
     $scope.loading = true;
     $scope.mobile = localStorage.getItem("mobile");
-    $localstorage.set('FromPage','app/galleryUpload');
+    $localstorage.set('CurrentPage',$state.current.name);
+    $localstorage.set('FromPage','app/galleryupload');
     $scope.loadingWheel = function() {
         $ionicLoading.show({
             template: '<ion-spinner icon="circles"/>'
@@ -155,21 +157,25 @@ angular.module('starter.controllers')
                     formData.append("tagName", tagName);
                     galleryUploadService.uploadImage(formData).then(function (response) 
                     {
-                        $log.debug(response.data);
-                        $scope.uploadPopup();
-                        $scope.loading = false;
-                        $ionicLoading.hide();
-                        $ionicScrollDelegate.scrollTop();
-                        $('#Selectedimage').hide();
-                        $('#Selectedimage').attr('src', "");
-                        $scope.form.form.desc = "";
-                        $scope.toggleGroup1(7);                       
-                        $('input:checkbox').removeAttr('checked');
-                        $scope.tagList=[{name:"Common",check:true,disable:true}];
-                        var ogList=["Hand Design", "Feet Design","Indian","Pakistani","Moghlai","Arabic","Indo-Arabic","Bridal"];
-                        for(var i=0;i<ogList.length;i++)
+                        $timeout(callAtTimeout, 10000);
+                        function callAtTimeout() 
                         {
-                            $scope.tagList.push({name:ogList[i],check:false});
+                            $log.debug(response.data);
+                            $scope.uploadPopup();
+                            $scope.loading = false;
+                            $ionicLoading.hide();
+                            $ionicScrollDelegate.scrollTop();
+                            $('#Selectedimage').hide();
+                            $('#Selectedimage').attr('src', "");
+                            $scope.form.form.desc = "";
+                            $scope.toggleGroup1(7);                       
+                            $('input:checkbox').removeAttr('checked');
+                            $scope.tagList=[{name:"Common",check:true,disable:true}];
+                            var ogList=["Hand Design", "Feet Design","Indian","Pakistani","Moghlai","Arabic","Indo-Arabic","Bridal"];
+                            for(var i=0;i<ogList.length;i++)
+                            {
+                                $scope.tagList.push({name:ogList[i],check:false});
+                            }
                         }
                     },
                     function (error) {

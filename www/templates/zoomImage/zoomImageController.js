@@ -1,7 +1,8 @@
 angular.module('starter.controllers')
-.controller('zoomImageController',['$location','$rootScope','$localstorage','$scope','$log',function zoomImageController($location,$rootScope,$localstorage,$scope,$log)
+.controller('zoomImageController',['$state','$location','$rootScope','$localstorage','$scope','$log',function zoomImageController($state,$location,$rootScope,$localstorage,$scope,$log)
 {
-    $localstorage.set('FromPage','app/zoomImage');
+    $localstorage.set('CurrentPage',$state.current.name);
+    $localstorage.set('FromPage','app/zoomimage');
     $scope.imagetoZoom = $localstorage.get('imageToZoom');
     $scope.apk = localStorage.getItem("MehndiSTARapk");
     $log.debug("apk: "+$scope.apk);

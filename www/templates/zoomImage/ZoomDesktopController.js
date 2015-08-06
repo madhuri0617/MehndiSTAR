@@ -42,9 +42,10 @@ angular.module('starter.controllers')
         };
 })
 
-.controller('ZoomDesktopController',['$location','$ionicPopup','$rootScope','$localstorage','$scope','$log',function ZoomDesktopController($location,$ionicPopup,$rootScope,$localstorage,$scope,$log)
+.controller('ZoomDesktopController',['$state','$location','$ionicPopup','$rootScope','$localstorage','$scope','$log',function ZoomDesktopController($state,$location,$ionicPopup,$rootScope,$localstorage,$scope,$log)
 {
-    $localstorage.set('FromPage','app/zoomDesktop');
+    $localstorage.set('CurrentPage',$state.current.name);
+    $localstorage.set('FromPage','app/zoomdesktop');
     $scope.imagetoZoom = $localstorage.get('imageToZoom');
     $scope.apk = localStorage.getItem("MehndiSTARapk");
     $log.debug("apk: "+$scope.apk);

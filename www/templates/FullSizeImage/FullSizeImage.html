@@ -16,12 +16,12 @@
     <div id="ImageDetails" class="list card" ng-show="loading === false">
     <div class="headerformat item item-avatar myProfile-header">
         <a href ng-click="getuid(fsc.ImgDetails.uid)" ng-if="fsc.MyId!==fsc.ImgDetails.uid">
-            <img ng-src="{{fsc.ImgDetails.DPPath}}" alt=""/>
+            <img ng-src="{{fsc.ImgDetails.DPPathLow}}" alt=""/>
             <h2>{{fsc.ImgDetails.userName}}</h2>
             <small>Posted {{ fsc.ImgDetails.uploadDate}}</small>
         </a>
         <a href="#/app/MyProfile/posts" ng-if="fsc.MyId===fsc.ImgDetails.uid">
-            <img ng-src="{{fsc.ImgDetails.DPPath}}" alt=""/>
+            <img ng-src="{{fsc.ImgDetails.DPPathLow}}" alt=""/>
             <h2  class="fontcolor">{{fsc.ImgDetails.userName}}</h2>
             <small>Posted {{ fsc.ImgDetails.uploadDate}}</small>
             <!--<p> {{posts.imageId}}</p>-->
@@ -33,7 +33,7 @@
           <p id="ImageDescription">{{fsc.ImgDetails.des}}</p>
       </div>
         <a>
-        <img class="full-image" ng-src="{{fsc.ImgDetails.imagePath}}" alt="" ng-click="fsc.gotoZoom()" style="cursor:pointer"/>
+        <img class="full-image" ng-src="{{fsc.ImgDetails.imagePathHigh}}" alt="" ng-click="fsc.gotoZoom()" style="cursor:pointer"/>
         </a>
     </div>
         <div class="item item-body">
@@ -51,11 +51,11 @@
            <i class="icon ion-chatbox"></i>
             Comment
         </a>
-         <a class="tab-item"  ng-click="shareFacebook(fsc.ImgDetails)" href="">
+         <a class="tab-item"  ng-click="shareFBPopupwithImage(fsc.ImgDetails)" href="">
             <i class="icon ion-social-facebook"></i>
             Share
         </a>
-       <a class="tab-item"  ng-click="shareonWhatsapp(shareimagePath)" href="" id="whatsappshare">
+       <a class="tab-item"  ng-click="shareonWhatsapp(shareimagePathHigh)" href="" id="whatsappshare">
             <i class="icon ion-social-whatsapp"></i>
             Share
         </a>
@@ -65,14 +65,14 @@
     <div id="commentsDiv" class="list card">
         <div id="comments" class="item item-avatar" ng-repeat="Post in fsc.PostsResult track by $index"  ng-show="loading === false"  ng-if="msg!=='no comments'">
                 <a href  ng-click="getuid('{{Post.uid}}')" ng-if="fsc.MyId!==Post.uid">    
-                    <img ng-src="{{Post.UserInfo.DPPath}}" alt=""/>
+                    <img ng-src="{{Post.UserInfo.DPPathLow}}" alt=""/>
                     <h2 style="float:left;">{{Post.UserInfo.userName}}</h2>
                     <small style="float:right;">{{Post.uploadDate}}</small>
                     <br>
                     <p style="">{{Post.comment}}</p>
                 </a>
             <a href="#/app/MyProfile/posts" ng-if="fsc.MyId===Post.uid">    
-                    <img ng-src="{{Post.UserInfo.DPPath}}" alt=""/>
+                    <img ng-src="{{Post.UserInfo.DPPathLow}}" alt=""/>
                     <h2 style="float:left;">{{Post.UserInfo.userName}}</h2>
                     <small style="float:right;">{{Post.uploadDate}}</small>
                     <br>

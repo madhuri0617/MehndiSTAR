@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('uploaderCtrl', ['$stateParams','$http','$scope','$rootScope','userProfileService','$ionicScrollDelegate','$ionicLoading','$ionicPopup','$location','$localstorage','FullImgService','CommonServiceDate','$log', function uploaderCtrl($stateParams,$http,$scope,$rootScope,userProfileService,$ionicScrollDelegate,$ionicLoading,$ionicPopup,$location,$localstorage,FullImgService,CommonServiceDate,$log) {
+.controller('uploaderCtrl', ['$state','$stateParams','$http','$scope','$rootScope','userProfileService','$ionicScrollDelegate','$ionicLoading','$ionicPopup','$location','$localstorage','FullImgService','CommonServiceDate','$log', function uploaderCtrl($state,$stateParams,$http,$scope,$rootScope,userProfileService,$ionicScrollDelegate,$ionicLoading,$ionicPopup,$location,$localstorage,FullImgService,CommonServiceDate,$log) {
     $scope.loading = true;
     $rootScope.zoomImagePage = false;
     $scope.UserIDFromURL = $stateParams.uid;
@@ -71,7 +71,7 @@ angular.module('starter.controllers')
         userProfileService.getUserInfo(uc.user).then(function (response) {
             $log.debug('response of getUserInfo',response.data);
             uc.Profile = response.data;
-            $scope.profilePhoto = uc.Profile.DPPath;
+            $scope.profilePhoto = uc.Profile.DPPathHigh;
             $scope.loadinggetOwninfo = true;
             $log.debug('uc.Profile',uc.Profile);
         },
@@ -102,15 +102,17 @@ angular.module('starter.controllers')
     uc.getDesignsPosts = function()
     {
         $scope.loadingWheel();
-        $localstorage.set('FromPage','app/userProfile/'+ $scope.UserIDFromURL+'/posts');
+        $localstorage.set('CurrentPage',$state.current.name);
+        $localstorage.set('FromPage','app/userprofile/'+ $scope.UserIDFromURL+'/posts');
         $location.path("app/userProfile/"+$scope.UserIDFromURL+'/posts');
         $scope.IsPostTabActive = true;
         $scope.IsLikeTabActive = false; 
     };
     uc.getDesignsLikes = function()
     {
+        $localstorage.set('CurrentPage',$state.current.name);
         $scope.loadingWheel();
-        $localstorage.set('FromPage','app/userProfile/'+ $scope.UserIDFromURL+'/likes');
+        $localstorage.set('FromPage','app/userprofile/'+ $scope.UserIDFromURL+'/likes');
         $location.path("app/userProfile/"+$scope.UserIDFromURL+'/likes');
         $scope.IsLikeTabActive = true;
         $scope.IsPostTabActive = false;
@@ -150,6 +152,7 @@ angular.module('starter.controllers')
             $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
             $scope.errorPopup($scope.msg);
             $scope.loading = false;
+            $scope.moredata = true;
             $ionicLoading.hide();
             $log.debug("Error in getUserPost Service", error);
         });               
@@ -198,23 +201,26 @@ angular.module('starter.controllers')
             $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
             $scope.errorPopup($scope.msg);
             $scope.loading = false;
+            $scope.moredata = true;
             $ionicLoading.hide();
             $log.debug("Error in getUserLike Service", error);
         });               
     };     
     if($scope.PostsLikesFromURL === 'posts')
     {
+        $localstorage.set('CurrentPage',$state.current.name);
         $scope.loadingWheel();
         uc.getUserPost(); 
-        $localstorage.set('FromPage','app/userProfile/'+ $scope.UserIDFromURL+'/posts');
+        $localstorage.set('FromPage','app/userprofile/'+ $scope.UserIDFromURL+'/posts');
         $scope.IsPostTabActive = true;
         $scope.IsLikeTabActive = false; 
     }
     else
     {
+        $localstorage.set('CurrentPage',$state.current.name);
         $scope.loadingWheel();
         uc.getUserLike();
-        $localstorage.set('FromPage','app/userProfile/'+ $scope.UserIDFromURL+'/likes');
+        $localstorage.set('FromPage','app/userprofile/'+ $scope.UserIDFromURL+'/likes');
         $scope.IsLikeTabActive = true;
         $scope.IsPostTabActive = false;
     }

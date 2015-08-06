@@ -86,7 +86,7 @@
          Feedback
         </a>
         </ion-item>
-          <ion-item class="item-stable" nav-clear menu-close ng-show='apk'>
+          <ion-item class="item-stable" nav-clear menu-close ng-show='{{apk}}'>
             <a class="item-content" href ng-click="exit()" >
          Exit
         </a>
@@ -100,9 +100,10 @@
 <!--          <ion-item class="linksFormating" nav-clear menu-close ng-click="login()">
          Recent
         </ion-item>-->
-      </ion-list>
+      </ion-list>       
     </ion-content>
-  </ion-side-menu>
+
+       </ion-side-menu>
 </ion-side-menus>
 <!--        footer-->
    <div class="bar bar-footer tabs-striped tabs-color-assertive" ng-hide="zoomImagePage">

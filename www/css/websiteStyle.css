@@ -4,7 +4,6 @@
     font-family: 'Noto Sans', sans-serif;
 /*    color:#898383;*/
 }
-
 .fontcolor,#ImageDetails p
 {
     color:#898383;
@@ -16,6 +15,10 @@ img[src=""]
 .item
 {
     margin-bottom: -5px;
+}
+.menu-close-striped-tag
+{
+       -webkit-transform: translate3d(0px, 0px, 0px) !important; 
 }
 #whatsappshare, #tabCamera, #DPCamera
 {
@@ -58,14 +61,7 @@ img[src=""]
 .card
 {
     width:70%;
-    /*margin: 0px auto;*/
-    /*margin-right: 2%;*/
-    /*float:left;*/
-    /*clear:right;*/
     border-radius: 6.5px;
-    //margin: 15px 15px;
-    //margin-left: 18px;
-    //margin-right: 18px;
     margin-top: 20px;
     margin-bottom: 0px;
     margin-right: 0px;
@@ -73,10 +69,6 @@ img[src=""]
 .list:last-child.card 
 {
     margin-bottom: 35px;
-}
-.card.desktop img {
-    /*max-height: 650px;*/
-    /*max-width:500px;*/
 }
 .item.tabs .tab-item
 {
@@ -1071,7 +1063,7 @@ img[alt="aboutuslogo"]
 }
 .card
 {
-    width:98%;
+    width:99%;
     margin-top: 5px;
 }
 #uploadtags textArea
