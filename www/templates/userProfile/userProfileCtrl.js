@@ -90,18 +90,47 @@ angular.module('starter.controllers')
     {
         $scope.moredesigns = false;
         $log.debug("loadmoredata: ",uc.Posts );
-        uc.Posts.push(uc.dumy[$scope.counter]);
-        $scope.counter += 1;   
+//        uc.Posts.push(uc.dumy[$scope.counter]);
+//        $scope.counter += 1;   
         $log.debug("uc.Posts.length: ",uc.Posts.length,$scope.totalPosts);
+        
+        if($scope.totalPosts %2 === 0)
+        {
+            if(uc.Posts.length < $scope.totalPosts )
+            {
+                $log.debug("posts less than total posts");
+                uc.Posts.push(uc.dumy[$scope.counter]);
+                uc.Posts.push(uc.dumy[++$scope.counter]);
+                $scope.counter += 1;   
+            }
+            $log.debug("$scope.Posts.length: ",uc.Posts.length,$scope.totalPosts);
+        }
+        else
+        {
+            if(uc.Posts.length < $scope.totalPosts-1 )
+            {
+                $log.debug("posts less than total posts");
+                uc.Posts.push(uc.dumy[$scope.counter]);
+                uc.Posts.push(uc.dumy[++$scope.counter]);
+                $scope.counter += 1;   
+            }
+            $log.debug($scope.counter);
+            if(uc.Posts.length === $scope.totalPosts-1)
+            {
+                $log.debug("posts length is 1 less than total posts");
+                uc.Posts.push(uc.dumy[$scope.counter]);
+            }
+            $log.debug("$scope.Posts.length: ",uc.Posts.length,$scope.totalPosts);
+        }
         if(uc.Posts.length === $scope.totalPosts)
         {
+            $log.debug("posts equals total posts");
             $scope.moredata=true;
         }
         $scope.$broadcast('scroll.infiniteScrollComplete');
     };
     uc.getDesignsPosts = function()
     {
-        $scope.loadingWheel();
         $localstorage.set('CurrentPage',$state.current.name);
         $localstorage.set('FromPage','app/userprofile/'+ $scope.UserIDFromURL+'/posts');
         $location.path("app/userProfile/"+$scope.UserIDFromURL+'/posts');
@@ -111,7 +140,6 @@ angular.module('starter.controllers')
     uc.getDesignsLikes = function()
     {
         $localstorage.set('CurrentPage',$state.current.name);
-        $scope.loadingWheel();
         $localstorage.set('FromPage','app/userprofile/'+ $scope.UserIDFromURL+'/likes');
         $location.path("app/userProfile/"+$scope.UserIDFromURL+'/likes');
         $scope.IsLikeTabActive = true;
@@ -130,11 +158,12 @@ angular.module('starter.controllers')
                     var dateToShow = CommonServiceDate.getPostDate(dateStr);
                     response.data[i].uploadDate = dateToShow;
             }
-            if($scope.totalPosts>20)
+            if($scope.totalPosts>4)
             {
-                for( ; $scope.counter<20; $scope.counter++)
+                for( ; $scope.counter<4; $scope.counter++)
                 {
                     uc.Posts.push(uc.dumy[$scope.counter]);
+                    uc.Posts.push(uc.dumy[++$scope.counter]);
                 }   
             }
             else
@@ -178,11 +207,12 @@ angular.module('starter.controllers')
                         var dateToShow = CommonServiceDate.getPostDate(dateStr);
                         response.data[i].uploadDate = dateToShow;
                 }
-                if($scope.totalPosts>20)
+                if($scope.totalPosts>4)
                 {
-                    for( ; $scope.counter<20; $scope.counter++)
+                    for( ; $scope.counter<4; $scope.counter++)
                     {
                         uc.Posts.push(uc.dumy[$scope.counter]);
+                        uc.Posts.push(uc.dumy[++$scope.counter]);
                     } 
                 }
                 else

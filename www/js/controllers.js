@@ -160,9 +160,9 @@ angular.module('starter.controllers', ['ionic'])
                 var dateToShow = CommonServiceDate.getPostDate(dateStr);
                 response.data[i].uploadDate = dateToShow;
             }
-            if($scope.totalPosts>20)
+            if($scope.totalPosts>4)
             {
-                 for( ; $scope.counter<20; $scope.counter++)
+                 for( ; $scope.counter<4; $scope.counter++)
                  {
                      $scope.Posts.push($scope.dumy[$scope.counter]);
                  }
@@ -205,13 +205,41 @@ angular.module('starter.controllers', ['ionic'])
     $scope.moredesigns = false; 
     $scope.loadMoreData=function()
     {
+        $log.debug("inside loadmore");
         $scope.moredesigns = false;
-        $log.debug("loadmoredata: ",$scope.Posts );
-        $scope.Posts.push($scope.dumy[$scope.counter]);
-        $scope.counter += 1;   
-        $log.debug("$scope.Posts.length: ",$scope.Posts.length,$scope.totalPosts);
+        $log.debug("loadmoredata: " + $scope.Posts + " $scope.counter" + $scope.counter );
+        $log.debug(" $scope.Posts.length: ",$scope.Posts.length,$scope.totalPosts);
+        if($scope.totalPosts %2 === 0)
+        {
+            if($scope.Posts.length < $scope.totalPosts )
+            {
+                $log.debug("posts less than total posts");
+                $scope.Posts.push($scope.dumy[$scope.counter]);
+                $scope.Posts.push($scope.dumy[++$scope.counter]);
+                $scope.counter += 1;   
+            }
+            $log.debug("$scope.Posts.length: ",$scope.Posts.length,$scope.totalPosts);
+        }
+        else
+        {
+            if($scope.Posts.length < $scope.totalPosts-1 )
+            {
+                $log.debug("posts less than total posts");
+                $scope.Posts.push($scope.dumy[$scope.counter]);
+                $scope.Posts.push($scope.dumy[++$scope.counter]);
+                $scope.counter += 1;   
+            }
+            $log.debug($scope.counter);
+            if($scope.Posts.length === $scope.totalPosts-1)
+            {
+                $log.debug("posts length is 1 less than total posts");
+                $scope.Posts.push($scope.dumy[$scope.counter]);
+            }
+            $log.debug("$scope.Posts.length: ",$scope.Posts.length,$scope.totalPosts);
+        }
         if($scope.Posts.length === $scope.totalPosts)
         {
+            $log.debug("posts equals total posts");
             $scope.moredata=true;
         }
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -325,9 +353,9 @@ angular.module('starter.controllers', ['ionic'])
                 var dateToShow = CommonServiceDate.getPostDate(dateStr);
                 response.data[i].uploadDate = dateToShow;
             }
-            if($scope.totalPosts>20)
+            if($scope.totalPosts>4)
             {
-                for( ; $scope.counter<20; $scope.counter++)
+                for( ; $scope.counter<4; $scope.counter++)
                 {
                     $scope.Posts.push($scope.dumy[$scope.counter]);
                 }
@@ -387,8 +415,9 @@ angular.module('starter.controllers', ['ionic'])
         $rootScope.sessionMyID=null;
         $scope.MyId='';
         $localstorage.set('IsLoggedIn',false);
-        $location.path('app/home');
-        $scope.getPopular($scope.tagFromURL);
+        $location.path('app/home/common/popular');
+//        $scope.tagFromURL = "common";
+//        $scope.getPopular($scope.tagFromURL);
     };
     $scope.exit = function() {
         if($localstorage.get('sessionMyID'))
@@ -463,7 +492,7 @@ angular.module('starter.controllers', ['ionic'])
                         $scope.getPopular($stateParams.tagNm);
                     }
                     $scope.loadingLike = false;
-//                    $ionicLoading.hide();
+                    $ionicLoading.hide();
                 },
                 function (error) {
                     $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
@@ -485,7 +514,7 @@ angular.module('starter.controllers', ['ionic'])
                         $scope.getPopular($stateParams.tagNm);
                     }
                     $scope.loadingLike = false;
-//                    $ionicLoading.hide();
+                    $ionicLoading.hide();
                 },
                 function (error) {
                     $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";

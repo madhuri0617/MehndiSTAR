@@ -136,11 +136,41 @@ angular.module('starter.controllers')
     {
         $scope.moredesigns = false;
         $log.debug("loadmoredata:    @@@@@@: ",mpc.Posts );
-        mpc.Posts.push(mpc.dumy[$scope.counter]);
-        $scope.counter += 1;   
+//        mpc.Posts.push(mpc.dumy[$scope.counter]);
+//        $scope.counter += 1;   
         $log.debug("mpc.Posts.length @@@@@@ :",mpc.Posts.length,$scope.totalPosts);
+        
+        if($scope.totalPosts %2 === 0)
+        {
+            if(mpc.Posts.length < $scope.totalPosts )
+            {
+                $log.debug("posts less than total posts");
+                mpc.Posts.push(mpc.dumy[$scope.counter]);
+                mpc.Posts.push(mpc.dumy[++$scope.counter]);
+                $scope.counter += 1;   
+            }
+            $log.debug("$scope.Posts.length: ",mpc.Posts.length,$scope.totalPosts);
+        }
+        else
+        {
+            if(mpc.Posts.length < $scope.totalPosts-1 )
+            {
+                $log.debug("posts less than total posts");
+                mpc.Posts.push(mpc.dumy[$scope.counter]);
+                mpc.Posts.push(mpc.dumy[++$scope.counter]);
+                $scope.counter += 1;   
+            }
+            $log.debug($scope.counter);
+            if(mpc.Posts.length === $scope.totalPosts-1)
+            {
+                $log.debug("posts length is 1 less than total posts");
+                mpc.Posts.push(mpc.dumy[$scope.counter]);
+            }
+            $log.debug("$scope.Posts.length: ",mpc.Posts.length,$scope.totalPosts);
+        }
         if(mpc.Posts.length === $scope.totalPosts)
         {
+            $log.debug("posts equals total posts");
             $scope.moredata=true;
         }
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -187,11 +217,12 @@ angular.module('starter.controllers')
                         var dateToShow = CommonServiceDate.getPostDate(dateStr);
                         response.data[i].uploadDate = dateToShow;
                     }
-                    if($scope.totalPosts>20)
+                    if($scope.totalPosts>4)
                     {
-                        for( ; $scope.counter<20; $scope.counter++)
+                        for( ; $scope.counter<4; $scope.counter++)
                         {
                             mpc.Posts.push(mpc.dumy[$scope.counter]);
+                            mpc.Posts.push(mpc.dumy[++$scope.counter]);
                         }   
                     }
                     else
@@ -238,11 +269,12 @@ angular.module('starter.controllers')
                     var dateToShow = CommonServiceDate.getPostDate(dateStr);
                     response.data[i].uploadDate = dateToShow;
                 }
-                if($scope.totalPosts>20)
+                if($scope.totalPosts>4)
                 {
-                    for( ; $scope.counter<20; $scope.counter++)
+                    for( ; $scope.counter<4; $scope.counter++)
                     {
                         mpc.Posts.push(mpc.dumy[$scope.counter]);
+                        mpc.Posts.push(mpc.dumy[++$scope.counter]);
                     } 
                 }
                 else
@@ -269,16 +301,21 @@ angular.module('starter.controllers')
     if($scope.myPostsLikesFromURL === 'posts')
     {
         $localstorage.set('CurrentPage',$state.current.name);
-        mpc.getOwnPost(); 
         $localstorage.set('FromPage','app/myprofile/posts');
+        if($localstorage.set('FromPage' === 'app/myprofile/posts')) {}
+        else
+        mpc.getOwnPost(); 
         $scope.IsPostTabActive = true;
         $scope.IsLikeTabActive = false; 
     }
     else
     {
         $localstorage.set('CurrentPage',$state.current.name);
-        mpc.getOwnLike();
         $localstorage.set('FromPage','app/myprofile/likes');
+        if($localstorage.set('FromPage' === 'app/myprofile/likes')) {}
+        else
+        mpc.getOwnLike();
+        
         $scope.IsLikeTabActive = true;
         $scope.IsPostTabActive = false;
     }
