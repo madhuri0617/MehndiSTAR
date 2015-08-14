@@ -9,7 +9,7 @@ angular.module('Services')
         });
     };
     this.getUserPost = function (PostData) {
-        $log.debug("", PostData);
+        $log.debug("postdata of getUserPosts: ", PostData);
         return $http({
             method: 'POST',
             data: PostData,

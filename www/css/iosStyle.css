@@ -160,17 +160,13 @@ img[src=""] {
 {
     color:#4e4848;
     font-weight: bold;
+    border-bottom:1px solid #d3d3d3;
     font-family: 'Noto Sans', sans-serif;
 }
-.autocomplete li:nth-child(odd) .highlight
+.autocomplete li span.highlight
 {
-    color:#4e4848;
-/*      background-color: #ee2424;*/
-}
-.autocomplete li:nth-child(odd) {
-  background-color: #ff7f66;
-  color:#fff;
-/*background-color: rgba(220, 44, 44, 0.3);*/
+    background-color: #ff7f66;
+    color:#fff;
 }
 .loading-container .loading
 {
@@ -360,7 +356,7 @@ img[alt="logincollage"]
 .MyDetailsBody{
     //margin-top: 48%;
     //position: relative;
-    margin-top: 130px;
+    margin-top: 90px;
 }
 .MyDetailsBody .item-body
 {
@@ -686,6 +682,9 @@ a.item-content
     /*padding-top:7px;*/
     text-align: center;
 }
+.bar.bar-assertive .title{
+    margin-top:20px;
+}
 /*==================================== upload designs ======================== */
 .fileUpload 
 {
@@ -935,7 +934,7 @@ img[alt="no-comments"] {
     text-align: center;
         color:#7d1709;
     background: url("../img/bg-splashscreen.jpg") no-repeat fixed 100% 100%;
-   // margin-top: 25%;
+    /*margin-top: 25%;*/
 }
 #aboutUs.scroll-content {
   display: table !important;

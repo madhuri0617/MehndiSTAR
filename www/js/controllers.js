@@ -125,16 +125,16 @@ angular.module('starter.controllers', ['ionic'])
                 $log.debug("analytics worked for mobile..");
                 if(typeof analytics !== undefined) 
                 { 
-                    analytics.trackView("Home-"+ tagNm);
-                    $log.debug("analytics on " + tagNm);
+                    analytics.trackView("Home-"+ tagNm + "-Popular");
+                    $log.debug("analytics on " + tagNm + "-Popular");
                 }
             });
         if($scope.apk!== 'true')
         {
-            $log.debug("analytics on "+ tagNm);
+            $log.debug("analytics on "+ tagNm + "-Popular");
             ga('send', 'pageview', {
-                'page': '/Home-'+ tagNm,
-                'title': 'Home-' + tagNm
+                'page': '/Home-'+ tagNm + "-Popular",
+                'title': 'Home-' + tagNm + "-Popular"
             });
         }; 
         $scope.populartab = true;
@@ -323,16 +323,16 @@ angular.module('starter.controllers', ['ionic'])
             $log.debug("analytics worked for mobile..");
             if(typeof analytics !== undefined) 
             { 
-                analytics.trackView("Home-"+ tagNm);
-                $log.debug("analytics on " + tagNm);
+                analytics.trackView("Home-"+ tagNm + "-Recent");
+                $log.debug("analytics on " + tagNm + "-Recent");
             }
         });
         if($scope.apk!== 'true')
         {
-            $log.debug("analytics on "+ tagNm);
+            $log.debug("analytics on "+ tagNm + "-Recent");
             ga('send', 'pageview', {
-                'page': '/Home-'+ tagNm,
-                'title': 'Home-' + tagNm
+                'page': '/Home-'+ tagNm + "-Recent",
+                'title': 'Home-' + tagNm + "-Recent"
             });
         };
         $scope.populartab = false;
@@ -415,7 +415,7 @@ angular.module('starter.controllers', ['ionic'])
         $rootScope.sessionMyID=null;
         $scope.MyId='';
         $localstorage.set('IsLoggedIn',false);
-        $location.path('app/home/common/popular');
+        $location.path('app/home/common/recent');
 //        $scope.tagFromURL = "common";
 //        $scope.getPopular($scope.tagFromURL);
     };

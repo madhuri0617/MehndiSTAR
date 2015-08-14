@@ -35,7 +35,7 @@
 
 .autocomplete li.active{
   width: 100%;
-  background-color: #4bf;
+  background-color: #d3d3d3;
 }
 
 .autocomplete .highlight {

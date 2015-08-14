@@ -148,30 +148,39 @@ angular.module('starter.controllers')
     uc.getUserPost = function(){
         $scope.loadingWheel();
         userProfileService.getUserPost(uc.user).then(function (response) {
-            //uc.Posts = response.data;
-            //uc.Posts = [];
-            uc.dumy = response.data;
-            $scope.counter = 0;
-            $scope.totalPosts = uc.dumy.length;
-            for (var i = 0; i < response.data.length; i++) {
-                    var dateStr = new Date(response.data[i].uploadDate);
-                    var dateToShow = CommonServiceDate.getPostDate(dateStr);
-                    response.data[i].uploadDate = dateToShow;
-            }
-            if($scope.totalPosts>4)
+            if(response.data[0].message)
             {
-                for( ; $scope.counter<4; $scope.counter++)
-                {
-                    uc.Posts.push(uc.dumy[$scope.counter]);
-                    uc.Posts.push(uc.dumy[++$scope.counter]);
-                }   
+                $scope.noDataPopup("Posts","No posts found.");
+                $scope.postLikesAvailable = false;
             }
             else
             {
-                uc.Posts = response.data;
-                $scope.moredata = true;
+                //uc.Posts = response.data;
+                //uc.Posts = [];
+                $scope.loadingWheel();
+                uc.dumy = response.data;
+                $scope.counter = 0;
+                $scope.totalPosts = uc.dumy.length;
+                for (var i = 0; i < response.data.length; i++) {
+                        var dateStr = new Date(response.data[i].uploadDate);
+                        var dateToShow = CommonServiceDate.getPostDate(dateStr);
+                        response.data[i].uploadDate = dateToShow;
+                }
+                if($scope.totalPosts>4)
+                {
+                    for( ; $scope.counter<4; $scope.counter++)
+                    {
+                        uc.Posts.push(uc.dumy[$scope.counter]);
+                        uc.Posts.push(uc.dumy[++$scope.counter]);
+                    }   
+                }
+                else
+                {
+                    uc.Posts = response.data;
+                    $scope.moredata = true;
+                }
+                $scope.postLikesAvailable = true;
             }
-            $scope.postLikesAvailable = true;
             $ionicScrollDelegate.scrollTop();
             $scope.loading = false;
             $ionicLoading.hide();

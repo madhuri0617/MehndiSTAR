@@ -353,7 +353,7 @@ app.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider,$log
             //instead of returning a new url string, I'll just change the $location.path directly so I don't have to worry about constructing a new url string and so a new state change is not triggered
             $location.replace().path(normalized);
         }else{
-             $location.path('/app/home/Common/popular');
+             $location.path('/app/home/Common/recent');
         }
         
 });

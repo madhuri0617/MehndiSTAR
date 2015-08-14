@@ -169,17 +169,13 @@ img[src=""] {
 {
     color:#4e4848;
     font-weight: bold;
+    border-bottom:1px solid #d3d3d3;
     font-family: 'Noto Sans', sans-serif;
 }
-.autocomplete li:nth-child(odd) .highlight
+.autocomplete li span.highlight
 {
-    color:#4e4848;
-/*      background-color: #ee2424;*/
-}
-.autocomplete li:nth-child(odd) {
-  background-color: #ff7f66;
-  color:#fff;
-/*background-color: rgba(220, 44, 44, 0.3);*/
+    background-color: #ff7f66;
+    color:#fff;
 }
 .loading-container .loading
 {

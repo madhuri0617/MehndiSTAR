@@ -17,9 +17,10 @@ angular.module('starter.controllers')
     };
     return DesignRetriever;
 })
- .controller('SearchDesignsController', function($state,$ionicPopup,$location,$filter,$ionicLoading,$scope, DesignRetriever,searchService,$ionicScrollDelegate,$rootScope,$localstorage,FullImgService,CommonServiceDate,$log){
+ .controller('SearchDesignsController', function(filterFilter,$state,$ionicPopup,$location,$filter,$ionicLoading,$scope, DesignRetriever,searchService,$ionicScrollDelegate,$rootScope,$localstorage,FullImgService,CommonServiceDate,$log){
 //$scope.loading = true;
-    $scope.empty=false;
+    $scope.empty=true;
+//    $scope.result = {};
     $scope.MyId = $localstorage.get('sessionMyID');
     $scope.apk = localStorage.getItem("MehndiSTARapk");
     $log.debug("apk: "+$scope.apk);
@@ -45,6 +46,26 @@ angular.module('starter.controllers')
           okType: ' button-upload' 
         });
     };
+    $scope.tag = {
+			beg : 0,																// begining of response set used for scroll down
+			tagName : ["Common"],
+                         userID : $scope.MyId 
+	};
+        searchService.search($scope.tag).then(function (response) {
+            $scope.searchPosts = response.data;
+            for (var i = 0; i < response.data.length; i++) {
+                var dateStr = new Date(response.data[i].uploadDate);
+                var dateToShow = CommonServiceDate.getPostDate(dateStr);
+                response.data[i].uploadDate = dateToShow;
+            }      
+        },
+        function (error) {
+            $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
+            $scope.errorPopup($scope.msg);
+            $scope.loading = false;
+            $ionicLoading.hide();
+            $log.debug("Error in search", error);
+        }); 
     $log.debug("MyId in search controller: "+$scope.MyId);
     var tagsAvailable = [{name:"Hand Design"}, {name:"Feet Design"},
             {name:"Indian"},{name:"Pakistani"},{name:"Moghlai"},{name:"Arabic"},
@@ -75,68 +96,91 @@ angular.module('starter.controllers')
     $scope.designs = DesignRetriever.getdesigns("...");
     $scope.designs.then(function(data){
         $scope.designs = data;
-        $scope.searchPosts = {};
     });
 
     $scope.getdesigns = function(){
       return $scope.designs;
     };
-
-    $scope.doSomething = function(typedthings){
-        $log.debug("Do something like reload data with this: " + typedthings );
-        $scope.newdesigns = DesignRetriever.getdesigns(typedthings);
-        $scope.newdesigns.then(function(data){
-            $scope.designs = data;
-        });
-
-        var myGreenObject = $filter('filter')(tagsAvailable, { name: typedthings });
-            $log.debug(typedthings +": ",myGreenObject);
-
-        if (myGreenObject.length!== 0){
-            $scope.doSomethingElse(typedthings);
-            $scope.empty = false;
-            $scope.class="ng-hide";
+    $scope.moredata = false;
+    
+    $scope.moredesigns = false; 
+    $scope.loadMoreData=function()
+    {
+        $log.debug("inside loadmore");
+        $scope.moredesigns = false;
+        $log.debug("loadmoredata: " + $scope.results + " $scope.counter" + $scope.counter );
+        $log.debug(" $scope.results.length: ",$scope.results.length,$scope.totalPosts);
+        if($scope.totalPosts %2 === 0)
+        {
+            if($scope.results.length < $scope.totalPosts )
+            {
+                $log.debug("posts less than total posts");
+                $scope.results.push($scope.dumy[$scope.counter]);
+                $scope.results.push($scope.dumy[++$scope.counter]);
+                $scope.counter += 1;   
+            }
+            $log.debug("$scope.results.length: ",$scope.results.length,$scope.totalPosts);
         }
-        if (myGreenObject.length === 0){
-              $log.debug("empty result");
-              $scope.empty = true;
-              $scope.class="ng-show";
-              $log.debug("empty", $scope.empty);
+        else
+        {
+            if($scope.results.length < $scope.totalPosts-1 )
+            {
+                $log.debug("posts less than total posts");
+                $scope.results.push($scope.dumy[$scope.counter]);
+                $scope.results.push($scope.dumy[++$scope.counter]);
+                $scope.counter += 1;   
+            }
+            $log.debug($scope.counter);
+            if($scope.results.length === $scope.totalPosts-1)
+            {
+                $log.debug("posts length is 1 less than total posts");
+                $scope.results.push($scope.dumy[$scope.counter]);
+            }
+            $log.debug("$scope.results.length: ",$scope.results.length,$scope.totalPosts);
+        }
+        if($scope.results.length === $scope.totalPosts)
+        {
+            $log.debug("posts equals total posts");
+            $scope.moredata=true;
+        }
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+    };
+    $scope.doSomething = function(typedthings){
+        $scope.empty = false;
+        $scope.loading = false;
+        $scope.moredata = false;
+        $scope.dumy = [];
+        $scope.results = [];
+        $log.debug("Do something like reload data with this: " + typedthings );
+        $scope.filteredArray = filterFilter($scope.searchPosts, $scope.result);
+        $log.debug("$scope.filteredItems", $scope.filteredArray);
+        $scope.dumy = $scope.filteredArray;
+        $scope.counter = 0;
+        $scope.totalPosts = $scope.filteredArray.length;
+        if($scope.totalPosts>4)
+        {
+//            $scope.loading = false;
+//            $scope.moredata = false;
+            for( ; $scope.counter<4; $scope.counter++)
+            {
+                $scope.results.push($scope.dumy[$scope.counter]);
+            }
+            $log.debug("$scope.filteredArray",$scope.filteredArray);
+        }
+        else
+        {
+            $scope.results = $scope.filteredArray;
+            $scope.moredata = true;
         }
     };
 
   $scope.doSomethingElse = function(suggestion){
      // $scope.loadingWheel();
         $log.debug("Suggestion selected: " + suggestion );
-        $scope.tag = {
-			beg : 0,																// begining of response set used for scroll down
-			tagName : [suggestion],
-                         userID : $scope.MyId 
-	};
-        searchService.search($scope.tag).then(function (response) {
-            $scope.searchPosts = response.data;
-            for (var i = 0; i < response.data.length; i++) {
-                    var dateStr = new Date(response.data[i].uploadDate);
-                    var dateToShow = CommonServiceDate.getPostDate(dateStr);
-                    response.data[i].uploadDate = dateToShow;
-            }
-            $ionicScrollDelegate.scrollTop();
-           // $scope.loading = false;
-           // $ionicLoading.hide();
-            if ($scope.searchPosts === 'SUCCESS') {
-                    $scope.success = true;
-                    $log.debug("Success" + $scope.success);
-            }
-
-            $log.debug("searched : ", $scope.searchPosts);
-        },
-        function (error) {
-            $scope.msg = "Oops! Something went wrong. Our team will look into this issue.";
-            $scope.errorPopup($scope.msg);
-            $scope.loading = false;
-            $ionicLoading.hide();
-            $log.debug("Error in search", error);
-        });     
+        $scope.empty = false;
+        $scope.loading = false;
+        $ionicScrollDelegate.scrollTop();
+           
     };
     $scope.getuserid = function(uid) {
             $localstorage.set('sessionUserID',uid);
